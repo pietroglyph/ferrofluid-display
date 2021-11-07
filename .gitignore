@@ -36,3 +36,7 @@ build
 
 # clangd files
 .cache
+
+# Hugo
+website/public/
+*.lock

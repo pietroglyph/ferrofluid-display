@@ -1,0 +1,4 @@
+baseURL = 'https://pietroglyph.github.io/ferrofluid-display/'
+languageCode = 'en-us'
+title = 'Ferrofluid Display'
+theme = 'twenty-twenty'
