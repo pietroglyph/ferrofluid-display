@@ -14,6 +14,7 @@ template <std::uint8_t width, std::uint8_t height>
 class file_frontend {
 public:
   file_frontend(std::filesystem::path images_directory) : images_directory{images_directory} {
+    if (!std::filesystem::exists(images_directory)) throw std::runtime_error{fmt::format("{} doesn't exist", images_directory.string())};
     if (!std::filesystem::is_directory(images_directory)) throw std::runtime_error{fmt::format("{} is not a directory", images_directory.string())};
   }
 
