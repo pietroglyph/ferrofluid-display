@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.12)
 
 project(tracking LANGUAGES CXX) # Could add CUDA here in the future
 
-option(USE_CUDA "Include CUDA headers and use CUDA-accelerated functions" OFF)
-option(STATIC_LINK_OPENCV "Statically link minimal OpenCV dependencies to create a more portable binary" OFF)
 option(SANITIZE "Enable a few runtime sanitizers" OFF)
 
 # Set module path so that we can add modules to find system dependencies (we add no modules rn)
