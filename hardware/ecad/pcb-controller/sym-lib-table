@@ -1,3 +1,3 @@
 (sym_lib_table
-  (lib (name ULQ2801A)(type Legacy)(uri ${FERROFLUID}/ULQ2801A.lib)(options "")(descr ""))
+  (lib (name ULQ2801A)(type Legacy)(uri ${FERROFLUID}/pcb-controller-library/ULQ2801A.lib)(options "")(descr ""))
 )
