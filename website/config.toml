@@ -2,3 +2,65 @@ baseURL = 'https://pietroglyph.github.io/ferrofluid-display/'
 languageCode = 'en-us'
 title = 'Ferrofluid Display'
 theme = 'twenty-twenty'
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+# unsafe html
+[markup.goldmark.renderer]
+unsafe = true
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+author = "author"
+
+# main menu
+[[menu.main]]
+name = "Home"
+URL = "/"
+weight = 1
+
+[[menu.main]]
+name = "Our Journey"
+URL = "journey"
+weight = 3
+
+[params]
+description = "Informational website for an electromagnet-based ferrofluid display"
+author = "Olin College Ferrofluid Team"
+
+[params.favicon]
+favicon = "images/favicon.png"
+
+[params.cookies]
+enable = false
+expire_days = 2
+
+[params.banner]
+heading = "A cheap, standalone ferrofluid display"
+image = "images/banner.jpg"
+
+[params.blog]
+heading = ""
+
+[params.call_to_action]
+enable = true
+title = "Project Overview"
+content = "We set out to create a display that can move blobs of magnetic ferrofluid to create animations and display text and images. We have eight weeks and a budget of $250 USD, so the display we create must be inexpensive and easy to assemble."
+button_label = "Follow our journey"
+button_url = "journey"
+
+[params.gallery]
+enable = true
+
+[[params.gallery.gallery_item ]]
+image = "images/steel-dust-model.jpg"
+
+[params.footer]
+title = "About Us"
+address = ""
+hours = ""
+content = "We're a team of five students at Olin College of Engineering with a wide variety of skills and experience. This project was made for Olin College's Principles of Integrated Engineering (PIE) in fall 2021."
+copyright = "Copyright &copy; 2021. Licensed under the GNU GPL, version 3 or later."
+
