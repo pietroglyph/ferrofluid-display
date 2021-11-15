@@ -24,17 +24,6 @@ F 3 "http://www.nxp.com/documents/data_sheet/PCA9685.pdf" H 4500 4200 50  0001 C
 	1    4900 3500
 	1    0    0    -1  
 $EndComp
-$Comp
-L ULQ2801A:ULQ2801A CR1
-U 1 1 61886CFF
-P 6450 2400
-F 0 "CR1" H 7250 2050 60  0000 C CNN
-F 1 "ULQ2801A" H 7250 1950 60  0000 C CNN
-F 2 "ULQ2801A:ULQ2801A" H 7250 2640 60  0001 C CNN
-F 3 "" H 6450 2400 60  0000 C CNN
-	1    6450 2400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5600 3500 6350 3500
 Wire Wire Line
@@ -185,239 +174,6 @@ Wire Wire Line
 	8250 3450 8150 3450
 Wire Wire Line
 	8250 3400 8250 3450
-Connection ~ 9250 3050
-Connection ~ 9250 4250
-Wire Wire Line
-	9250 4450 9250 4250
-Wire Wire Line
-	9350 4450 9250 4450
-Connection ~ 9250 4050
-Wire Wire Line
-	9250 4250 9250 4050
-Wire Wire Line
-	9350 4250 9250 4250
-Connection ~ 9250 3850
-Wire Wire Line
-	9250 4050 9250 3850
-Wire Wire Line
-	9350 4050 9250 4050
-Wire Wire Line
-	9350 3650 9250 3650
-Connection ~ 9250 3650
-Wire Wire Line
-	9250 3850 9250 3650
-Wire Wire Line
-	9350 3850 9250 3850
-Connection ~ 9250 3450
-Wire Wire Line
-	9250 3650 9250 3450
-Wire Wire Line
-	9350 3250 9250 3250
-Connection ~ 9250 3250
-Wire Wire Line
-	9250 3450 9250 3250
-Wire Wire Line
-	9350 3450 9250 3450
-Wire Wire Line
-	9250 3250 9250 3050
-Wire Wire Line
-	9350 3050 9250 3050
-Connection ~ 9950 4150
-Wire Wire Line
-	9950 4350 9950 4150
-Wire Wire Line
-	9850 4350 9950 4350
-Connection ~ 9950 3950
-Wire Wire Line
-	9950 4150 9950 3950
-Wire Wire Line
-	9850 4150 9950 4150
-Connection ~ 9950 3750
-Wire Wire Line
-	9950 3950 9950 3750
-Wire Wire Line
-	9850 3950 9950 3950
-Wire Wire Line
-	9850 3550 9950 3550
-Connection ~ 9950 3550
-Wire Wire Line
-	9950 3750 9950 3550
-Wire Wire Line
-	9850 3750 9950 3750
-Connection ~ 9950 3350
-Wire Wire Line
-	9950 3550 9950 3350
-Wire Wire Line
-	9850 3150 9950 3150
-Connection ~ 9950 3150
-Wire Wire Line
-	9950 3350 9950 3150
-Wire Wire Line
-	9850 3350 9950 3350
-Connection ~ 9950 2950
-Wire Wire Line
-	9950 3150 9950 2950
-Wire Wire Line
-	9850 2950 9950 2950
-$Comp
-L Connector_Generic:Conn_02x16_Odd_Even J3
-U 1 1 6192C4EF
-P 9550 3650
-F 0 "J3" V 9600 4200 50  0000 C CNN
-F 1 "Conn_02x16_Row_Letter_Last" V 9600 3400 50  0000 C CNN
-F 2 "Connector_PinHeader_2.00mm:PinHeader_2x16_P2.00mm_Vertical" H 9550 3650 50  0001 C CNN
-F 3 "~" H 9550 3650 50  0001 C CNN
-	1    9550 3650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9100 2400 9100 2950
-Wire Wire Line
-	9100 2950 9350 2950
-Wire Wire Line
-	8050 2400 9100 2400
-Wire Wire Line
-	9600 2800 9950 2800
-Connection ~ 9600 2800
-Wire Wire Line
-	9600 2750 9600 2800
-Wire Wire Line
-	9950 2800 9950 2950
-Wire Wire Line
-	9250 2800 9600 2800
-Wire Wire Line
-	9250 3050 9250 2800
-$Comp
-L power:+12V #PWR0105
-U 1 1 6193CA42
-P 9600 2750
-F 0 "#PWR0105" H 9600 2600 50  0001 C CNN
-F 1 "+12V" H 9615 2923 50  0000 C CNN
-F 2 "" H 9600 2750 50  0001 C CNN
-F 3 "" H 9600 2750 50  0001 C CNN
-	1    9600 2750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8050 2600 8900 2600
-Wire Wire Line
-	8900 2600 8900 3150
-Wire Wire Line
-	8900 3150 9350 3150
-Wire Wire Line
-	8050 2800 8700 2800
-Wire Wire Line
-	8700 2800 8700 3350
-Wire Wire Line
-	8700 3350 9350 3350
-Wire Wire Line
-	8050 3000 8500 3000
-Wire Wire Line
-	8500 3000 8500 3550
-Wire Wire Line
-	8500 3550 9350 3550
-Wire Wire Line
-	8500 4250 8500 3750
-Wire Wire Line
-	8500 3750 9350 3750
-Wire Wire Line
-	8050 4250 8500 4250
-Wire Wire Line
-	8700 4450 8700 3950
-Wire Wire Line
-	8700 3950 9350 3950
-Wire Wire Line
-	8050 4450 8700 4450
-Wire Wire Line
-	8050 4650 8900 4650
-Wire Wire Line
-	8900 4650 8900 4150
-Wire Wire Line
-	8900 4150 9350 4150
-Wire Wire Line
-	8050 4850 9100 4850
-Wire Wire Line
-	9100 4850 9100 4350
-Wire Wire Line
-	9100 4350 9350 4350
-Wire Wire Line
-	8050 3100 8400 3100
-Wire Wire Line
-	8400 3100 8400 2100
-Wire Wire Line
-	8400 2100 10100 2100
-Wire Wire Line
-	10100 2100 10100 3650
-Wire Wire Line
-	10100 3650 9850 3650
-Wire Wire Line
-	8050 2900 8300 2900
-Wire Wire Line
-	8300 2900 8300 2000
-Wire Wire Line
-	8300 2000 10200 2000
-Wire Wire Line
-	10200 2000 10200 3450
-Wire Wire Line
-	10200 3450 9850 3450
-Wire Wire Line
-	8050 2700 8200 2700
-Wire Wire Line
-	8200 2700 8200 1900
-Wire Wire Line
-	8200 1900 10300 1900
-Wire Wire Line
-	10300 1900 10300 3250
-Wire Wire Line
-	10300 3250 9850 3250
-Wire Wire Line
-	8050 2500 8100 2500
-Wire Wire Line
-	8100 2500 8100 1800
-Wire Wire Line
-	8100 1800 10400 1800
-Wire Wire Line
-	10400 1800 10400 3050
-Wire Wire Line
-	10400 3050 9850 3050
-Wire Wire Line
-	8050 4350 8550 4350
-Wire Wire Line
-	8550 4350 8550 4950
-Wire Wire Line
-	8550 4950 10100 4950
-Wire Wire Line
-	10100 4950 10100 3850
-Wire Wire Line
-	10100 3850 9850 3850
-Wire Wire Line
-	8050 4550 8450 4550
-Wire Wire Line
-	8450 4550 8450 5050
-Wire Wire Line
-	8450 5050 10200 5050
-Wire Wire Line
-	10200 5050 10200 4050
-Wire Wire Line
-	10200 4050 9850 4050
-Wire Wire Line
-	8050 4750 8350 4750
-Wire Wire Line
-	8350 4750 8350 5150
-Wire Wire Line
-	8350 5150 10300 5150
-Wire Wire Line
-	10300 5150 10300 4250
-Wire Wire Line
-	10300 4250 9850 4250
-Wire Wire Line
-	8050 4950 8250 4950
-Wire Wire Line
-	8250 5250 10400 5250
-Wire Wire Line
-	10400 5250 10400 4450
-Wire Wire Line
-	9850 4450 10400 4450
 Wire Wire Line
 	4200 2800 4000 2800
 Wire Wire Line
@@ -1000,8 +756,6 @@ Connection ~ 8000 3850
 Wire Wire Line
 	8150 3950 8000 3950
 Connection ~ 8000 3950
-Wire Wire Line
-	8250 4950 8250 5250
 Connection ~ 8000 5700
 Wire Wire Line
 	8150 5700 8000 5700
@@ -1071,4 +825,122 @@ F 3 "" H 8150 5200 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8150 5200 8150 5300
+$Comp
+L Connector_Generic:Conn_01x16 J3
+U 1 1 61BD86D2
+P 9550 3600
+F 0 "J3" H 9630 3592 50  0000 L CNN
+F 1 "Conn_01x16" H 9630 3501 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x16_P2.54mm_Vertical" H 9550 3600 50  0001 C CNN
+F 3 "~" H 9550 3600 50  0001 C CNN
+	1    9550 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L ULQ2801A:ULQ2801A CR1
+U 1 1 61886CFF
+P 6450 2400
+F 0 "CR1" H 7250 2050 60  0000 C CNN
+F 1 "ULQ2801A" H 7250 1950 60  0000 C CNN
+F 2 "ULQ2801A:ULQ2801A" H 7250 2640 60  0001 C CNN
+F 3 "" H 6450 2400 60  0000 C CNN
+	1    6450 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 2400 9250 2400
+Wire Wire Line
+	9250 2400 9250 2900
+Wire Wire Line
+	9250 2900 9350 2900
+Wire Wire Line
+	9150 2500 9150 3000
+Wire Wire Line
+	9150 3000 9350 3000
+Wire Wire Line
+	8050 2500 9150 2500
+Wire Wire Line
+	8050 2600 9050 2600
+Wire Wire Line
+	9050 2600 9050 3100
+Wire Wire Line
+	9050 3100 9350 3100
+Wire Wire Line
+	8050 2700 8950 2700
+Wire Wire Line
+	8950 2700 8950 3200
+Wire Wire Line
+	8950 3200 9350 3200
+Wire Wire Line
+	8050 2800 8850 2800
+Wire Wire Line
+	8850 2800 8850 3300
+Wire Wire Line
+	8850 3300 9350 3300
+Wire Wire Line
+	8050 2900 8750 2900
+Wire Wire Line
+	8750 2900 8750 3400
+Wire Wire Line
+	8750 3400 9350 3400
+Wire Wire Line
+	8050 3000 8650 3000
+Wire Wire Line
+	8650 3000 8650 3500
+Wire Wire Line
+	8650 3500 9350 3500
+Wire Wire Line
+	8050 3100 8550 3100
+Wire Wire Line
+	8550 3100 8550 3600
+Wire Wire Line
+	8550 3600 9350 3600
+Wire Wire Line
+	8050 4250 8550 4250
+Wire Wire Line
+	8550 4250 8550 3700
+Wire Wire Line
+	8550 3700 9350 3700
+Wire Wire Line
+	8050 4350 8650 4350
+Wire Wire Line
+	8650 4350 8650 3800
+Wire Wire Line
+	8650 3800 9350 3800
+Wire Wire Line
+	8050 4450 8750 4450
+Wire Wire Line
+	8750 4450 8750 3900
+Wire Wire Line
+	8750 3900 9350 3900
+Wire Wire Line
+	8050 4550 8850 4550
+Wire Wire Line
+	8850 4550 8850 4000
+Wire Wire Line
+	8850 4000 9350 4000
+Wire Wire Line
+	8950 4650 8950 4100
+Wire Wire Line
+	8950 4100 9350 4100
+Wire Wire Line
+	8050 4650 8950 4650
+Wire Wire Line
+	8050 4750 9050 4750
+Wire Wire Line
+	9050 4750 9050 4200
+Wire Wire Line
+	9050 4200 9350 4200
+Wire Wire Line
+	8050 4850 9150 4850
+Wire Wire Line
+	9150 4850 9150 4300
+Wire Wire Line
+	9150 4300 9350 4300
+Wire Wire Line
+	8050 4950 9250 4950
+Wire Wire Line
+	9250 4950 9250 4400
+Wire Wire Line
+	9250 4400 9350 4400
 $EndSCHEMATC
