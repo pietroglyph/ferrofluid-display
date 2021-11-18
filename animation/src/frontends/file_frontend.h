@@ -21,7 +21,7 @@ public:
   frame<width, height> get_frame() {
     frame<width, height> fr;
 
-    auto file = images_directory.append(fmt::format("./{}.png", current_image_idx++));
+    auto file = std::filesystem::path(images_directory).append(fmt::format("./{}.png", current_image_idx++));
     if (!std::filesystem::exists(file)) {
       done = true;
       return fr;
@@ -29,7 +29,7 @@ public:
 
     // Unfortunately there's no way to pass a premade cv::Mat into cv::imread
     auto fr_mat = cv::imread(file.string());
-    if (fr_mat.rows != width || fr_mat.cols != height) throw std::runtime_error{fmt::format("{} has the wrong size", file.string())};
+    if (fr_mat.cols != width || fr_mat.rows != height) throw std::runtime_error{fmt::format("{} has the wrong size", file.string())};
 
     std::copy(fr_mat.begin<std::uint8_t>(), fr_mat.end<std::uint8_t>(), std::begin(fr));
     fr_mat.addref();
