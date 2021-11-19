@@ -15,6 +15,7 @@ public:
   auto generate_output() {
     // Type of frame is typically frame<width, height>, but it's significantly easier to use auto so we don't need template template parameters
     auto frame = front.get_frame();
+    if (front.is_done()) return;
     return back.generate_output(frame);
   } 
 
