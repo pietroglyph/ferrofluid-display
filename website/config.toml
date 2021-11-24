@@ -24,7 +24,38 @@ weight = 1
 [[menu.main]]
 name = "Our Journey"
 URL = "journey"
+identifier = "mother"
+weight = 2
+
+[[menu.main]]
+name = "Tank"
+URL = "tank"
 weight = 3
+
+[[menu.main]]
+name = "Electromagnets"
+URL = "magnets"
+weight = 4
+
+[[menu.main]]
+name = "Controller Board"
+URL = "controller"
+weight = 5
+
+[[menu.main]]
+name = "Firmware"
+URL = "firmware"
+weight = 6
+
+[[menu.main]]
+name = "Software and Animation"
+URL = "software"
+weight = 7
+
+[[menu.main]]
+name = "GitHub"
+URL = "https://github.com/pietroglyph/ferrofluid-display"
+weight = 8
 
 [params]
 description = "Informational website for an electromagnet-based ferrofluid display"
@@ -59,8 +90,6 @@ image = "images/steel-dust-model.jpg"
 
 [params.footer]
 title = "About Us"
-address = ""
-hours = ""
-content = "We're a team of five students at Olin College of Engineering with a wide variety of skills and experience. This project was made for Olin College's Principles of Integrated Engineering (PIE) in fall 2021."
+content = "We're a team of five students at Olin College of Engineering with a wide variety of skills and experience. This project was made for Olin College's Principles of Integrated Engineering (PIE) in Fall 2021."
 copyright = "Copyright &copy; 2021. Licensed under the GNU GPL, version 3 or later."
 
