@@ -10,7 +10,7 @@ using frame = std::array<std::uint8_t, width * height>;
 template <typename frontend, typename backend>
 class animator {
 public:
-  animator(frontend&& front, backend&& back) : front{front}, back{back} {}
+  animator(frontend&& front, backend&& back) : front{std::move(front)}, back{std::move(back)} {}
 
   auto generate_output() {
     // Type of frame is typically frame<width, height>, but it's significantly easier to use auto so we don't need template template parameters

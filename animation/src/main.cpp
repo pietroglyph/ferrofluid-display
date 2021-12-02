@@ -2,6 +2,7 @@
 
 #include "frontends/file_frontend.h"
 #include "backends/visual_backend.h"
+#include "backends/file_backend.h"
 
 int main(int argc, char* argv[]) {
   std::string image_directory = "./images";
@@ -9,7 +10,7 @@ int main(int argc, char* argv[]) {
 
   constexpr std::uint8_t display_height = 8, display_width = 12;
   auto frontend = file_frontend<display_width, display_height>{image_directory};
-  auto backend = visual_backend<display_width, display_height>{};
+  auto backend = file_backend<display_width, display_height>{"/tmp/out.txt"};
 
   animator<decltype(frontend), decltype(backend)> anim{std::move(frontend), std::move(backend)};
 
