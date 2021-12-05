@@ -1,22 +1,33 @@
 #include <Adafruit_PWMServoDriver.h>
 
-Adafruit_PWMServoDriver* ic_1;
+Adafruit_PWMServoDriver** drivers;
 
 // Serial input command buffer
 uint16_t cmd_buffer_pos = 0;
 const uint8_t CMD_BUFFER_LEN = 20;
 char cmd_buffer[CMD_BUFFER_LEN];
 
-const uint8_t BOARDS_PER_ROW = 3;
+const uint8_t BOARDS_PER_ROW = 2;
+const uint8_t BOARD_ROWS = 1;
 const uint8_t LEDS_PER_ROW = 4;
 const uint8_t BOARDS_ID_BASE = 0x40;
 
 void setup() {
   Serial.begin(9600);
 
-  ic_1 =  new Adafruit_PWMServoDriver();
-  Serial.println("Connecting to Adafruit servo board");
-  ic_1->begin();
+  Serial.println("Connecting to Adafruit servo boards");
+  
+  int num_drivers = BOARD_ROWS * BOARDS_PER_ROW;
+  drivers = new Adafruit_PWMServoDriver* [num_drivers];
+
+  for (int i = 0; i < num_drivers; i++) {
+    Serial.print("Connecting to board ");
+    Serial.println(BOARDS_ID_BASE + i);
+    drivers[i] = new Adafruit_PWMServoDriver(BOARDS_ID_BASE + i);
+    drivers[i]->begin();
+    drivers[i]->setOutputMode(true);
+  }
+  
   Serial.println("Adafruit servo board connected");
 }
 
@@ -114,5 +125,5 @@ void toggle_led(int x_coord, int y_coord, uint16_t value) {
   Serial.print(" with value ");
   Serial.println(value);
 
-  ic_1->setPin(led_id, value);
+  drivers[board_id]->setPin(led_id, value);
 }
