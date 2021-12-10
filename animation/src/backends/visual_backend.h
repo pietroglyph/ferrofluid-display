@@ -7,12 +7,12 @@
 
 #include "../animator.h"
 
-template <std::size_t width, std::size_t height>
-class visual_backend {
+template <std::size_t width, std::size_t height> class visual_backend {
 public:
   void generate_output(frame<width, height> fr) {
     cv::Mat fr_mat{height, width, CV_8UC1, fr.data()};
-    cv::imshow("Display Preview", fr_mat);    
+    cv::bitwise_not(fr_mat, fr_mat);
+    cv::imshow("Display Preview", fr_mat);
     cv::waitKey();
   }
 };
