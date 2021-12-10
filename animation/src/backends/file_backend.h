@@ -11,7 +11,9 @@
 template <std::size_t width, std::size_t height, typename duty_cycle_t>
 class file_backend {
 public:
-  file_backend(std::filesystem::path file_path, duty_cycle_t max_duty_cycle = std::numeric_limits<duty_cycle_t>::max())
+  file_backend(
+      std::filesystem::path file_path,
+      duty_cycle_t max_duty_cycle = std::numeric_limits<duty_cycle_t>::max())
       : max_duty_cycle{max_duty_cycle} {
     if (std::filesystem::exists(file_path))
       throw std::runtime_error{"Output file already exists"};

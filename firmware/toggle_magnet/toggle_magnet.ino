@@ -18,6 +18,8 @@ constexpr std::uint8_t NUM_MAGNETS_PER_BOARD =
     COLS_OF_MAGNETS * ROWS_OF_MAGNETS;
 constexpr std::uint8_t NUM_MAGNETS = NUM_BOARDS * NUM_MAGNETS_PER_BOARD;
 
+constexpr std::uint16_t MAX_DUTY_CYCLE = 4095;
+
 constexpr std::uint8_t BOARDS_ID_BASE = 0x40;
 
 std::array<Adafruit_PWMServoDriver *, NUM_BOARDS> drivers;
@@ -28,6 +30,8 @@ void drive_output(std::uint8_t magnet_idx, std::uint16_t duty_cycle) {
   const std::uint8_t board_idx = magnet_idx / NUM_MAGNETS_PER_BOARD;
   // Need to subtract here because images start from top left indexes
   const std::uint8_t local_magnet_idx = magnet_idx % NUM_MAGNETS_PER_BOARD;
+
+  //Serial.printf("Writing %d duty cycle to local magnet idx %d on board %d\n", duty_cycle, local_magnet_idx, board_idx);
 
   drivers[board_idx]->setPin(local_magnet_idx, duty_cycle);
 }
@@ -177,7 +181,7 @@ void loop() {
       Serial.find(',');
       const int duty_cycle = Serial.parseInt();
       // Wishing for std::clamp and std::numeric_limits right now
-      drive_output(x, y, min(max(duty_cycle, 0), UINT16_MAX));
+      drive_output(x, y, std::min(std::max(duty_cycle, 0), static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
     } else if (command == "OFF") {
       mode = control_mode::manual;
       for (int i = 0; i < NUM_BOARDS; i++) {
@@ -226,7 +230,7 @@ void loop() {
           magnet_idx++,
           std::min(std::max(duty_cycle, 0),
                    static_cast<decltype(duty_cycle)>(
-                       std::numeric_limits<std::uint16_t>::max())));
+                       MAX_DUTY_CYCLE)));
 
       if (separator == ',')
         continue;
