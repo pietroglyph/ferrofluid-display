@@ -148,6 +148,7 @@ private:
 enum control_mode {
   manual,
   sd_card,
+  off,
 };
 control_mode mode = control_mode::manual;
 auto driver = interpolating_driver{2000};
@@ -169,8 +170,7 @@ void setup() {
 }
 
 void loop() {
-  constexpr int min_command_length = 3;
-  if (Serial.available() >= min_command_length) {
+  if (Serial.available()) {
     const auto command = Serial.readStringUntil(':');
     if (command == "XY") {
       mode = control_mode::manual;
@@ -180,16 +180,20 @@ void loop() {
       const int y = Serial.parseInt();
       Serial.find(',');
       const int duty_cycle = Serial.parseInt();
-      // Wishing for std::clamp and std::numeric_limits right now
       drive_output(x, y, std::min(std::max(duty_cycle, 0), static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
-    } else if (command == "OFF") {
+    } else if (command == "IDX") {
       mode = control_mode::manual;
-      for (int i = 0; i < NUM_BOARDS; i++) {
-        drivers[i]->reset();
-      }
+
+      const int idx = Serial.parseInt();
+      Serial.find(',');
+      const int duty_cycle = Serial.parseInt();
+
+      drive_output(idx, std::min(std::max(duty_cycle, 0), static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
+    } else if (command == "OFF") {
+      mode = control_mode::off;
     } else if (command == "SD") {
       if (!try_open_sd()) {
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
@@ -197,21 +201,21 @@ void loop() {
       const String file_name = Serial.readStringUntil('\n');
       if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
         Serial.println("Couldn't open file; does it exist?");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
       const int magnet_rows = animation_file.parseInt();
       if (animation_file.read() != ',') {
         Serial.println("Malformed separator");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
       const int magnet_cols = animation_file.parseInt();
 
       if (magnet_rows != ROWS_OF_MAGNETS || magnet_cols != COLS_OF_MAGNETS) {
         Serial.println("Mismatched number of magnets per row or column");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
@@ -219,6 +223,7 @@ void loop() {
     } else {
       Serial.println("Unknown command");
     }
+    Serial.find('\n'); // Eat a newline
   }
 
   if (mode == control_mode::sd_card) {
@@ -238,16 +243,21 @@ void loop() {
         break;
       else if (separator == 0xFF) {
         // End of file (not actually the nbsp character)
-        mode = control_mode::manual;
+        mode = control_mode::off;
         Serial.println("Animation done.");
         return;
       } else {
         Serial.printf("Malformed separator byte %#02x\n", separator);
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
     }
-
     driver.update_display();
+  } else if (mode == control_mode::off) {
+    for (int i = 0; i < NUM_MAGNETS; i++) {
+      drive_output(i, 0);
+    }
+    Serial.println("Turned magnets off");
+    mode = control_mode::manual;
   }
 }
