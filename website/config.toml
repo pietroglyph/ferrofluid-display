@@ -22,40 +22,52 @@ URL = "/"
 weight = 1
 
 [[menu.main]]
-name = "Our Journey"
+name = "**Our Journey**"
 URL = "journey"
 identifier = "mother"
 weight = 2
 
 [[menu.main]]
+name = "**Systems**"
+URL = "systems"
+weight = 4
+
+[[menu.main]]
 name = "Tank"
 URL = "tank"
-weight = 3
+weight = 5
 
 [[menu.main]]
 name = "Electromagnets"
 URL = "magnets"
-weight = 4
+weight = 6
 
 [[menu.main]]
 name = "Controller Board"
 URL = "controller"
-weight = 5
+weight = 7
 
 [[menu.main]]
 name = "Firmware"
 URL = "firmware"
-weight = 6
+weight = 8
 
 [[menu.main]]
 name = "Software and Animation"
 URL = "software"
-weight = 7
+weight = 9
+
+[[menu.main]]
+name = "About"
+URL = "about"
+weight = 10
+
+
 
 [[menu.main]]
 name = "GitHub"
 URL = "https://github.com/pietroglyph/ferrofluid-display"
-weight = 8
+weight = 10
 
 [params]
 description = "Informational website for an electromagnet-based ferrofluid display"
