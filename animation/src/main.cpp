@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
 
   constexpr std::uint8_t display_height = 4, display_width = 4;
   auto frontend = file_frontend<display_width, display_height>{image_directory};
-  auto backend =
-      file_backend<display_width, display_height, std::uint16_t>{output_file, 4095};
+  auto backend = file_backend<display_width, display_height, std::uint16_t>{
+      output_file, 4095};
 
   animator<decltype(frontend), decltype(backend)> anim{std::move(frontend),
                                                        std::move(backend)};
