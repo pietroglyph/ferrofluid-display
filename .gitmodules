@@ -1,0 +1,3 @@
+[submodule "website/themes/twenty-twenty-extended"]
+	path = website/themes/twenty-twenty-extended
+	url = https://github.com/pietroglyph/twenty-twenty-extended.git
