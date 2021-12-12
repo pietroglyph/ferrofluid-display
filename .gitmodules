@@ -1,5 +1,0 @@
-[submodule "website/themes/twenty-twenty"]
-	path = website/themes/twenty-twenty
-	url = https://github.com/themefisher/twenty-twenty-hugo.git
-[submodule "themes/twenty-twenty/"]
-	url = https://github.com/pietroglyph/twenty-twenty-extended.git
