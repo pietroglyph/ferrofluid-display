@@ -16,7 +16,7 @@ public:
       duty_cycle_t max_duty_cycle = std::numeric_limits<duty_cycle_t>::max())
       : max_duty_cycle{max_duty_cycle} {
     if (std::filesystem::exists(file_path))
-      throw std::runtime_error{"Output file already exists"};
+      fmt::print("File already exists; we will append\n");
 
     file_stream = std::ofstream{std::filesystem::absolute(file_path).string()};
     file_stream << width << "," << height << "\n";
