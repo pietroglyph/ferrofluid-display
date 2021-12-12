@@ -1,11 +1,18 @@
+#ifdef __AVR_ARCH__
+#include "ArduinoSTL.h"
+#endif
+
 #include <cstddef>
 #include <cstdint>
 
 #include <algorithm>
 #include <array>
-#include <limits>
 
 #include <Arduino.h>
+#ifdef __AVR_ARCH__
+#undef min
+#undef max
+#endif
 
 #include <Adafruit_PWMServoDriver.h>
 #include <SdFat.h>
@@ -31,7 +38,8 @@ void drive_output(std::uint8_t magnet_idx, std::uint16_t duty_cycle) {
   // Need to subtract here because images start from top left indexes
   const std::uint8_t local_magnet_idx = magnet_idx % NUM_MAGNETS_PER_BOARD;
 
-  //Serial.printf("Writing %d duty cycle to local magnet idx %d on board %d\n", duty_cycle, local_magnet_idx, board_idx);
+  // Serial.printf("Writing %d duty cycle to local magnet idx %d on board %d\n",
+  // duty_cycle, local_magnet_idx, board_idx);
 
   drivers[board_idx]->setPin(local_magnet_idx, duty_cycle);
 }
@@ -56,8 +64,9 @@ void drive_output(std::uint8_t x_coord, std::uint8_t y_coord,
 
 // Returns true if the SD card is ok or false otherwise
 bool try_open_sd() {
-  if (!sd.sdErrorCode()) return true;
-  
+  if (!sd.sdErrorCode())
+    return true;
+
   Serial.println("Trying to open SD card via SDIO in FIFO mode");
   if (!sd.begin(SdioConfig(FIFO_SDIO))) {
     Serial.println("Failed to open SD card");
@@ -131,9 +140,9 @@ public:
     for (std::size_t i = 0; i < NUM_MAGNETS; i++) {
       std::uint16_t slerped =
           duty_cycles_current[i] +
-          max(static_cast<std::int32_t>(duty_cycles_last[i]) -
-                  static_cast<std::int32_t>(duty_cycles_current[i]),
-              0) *
+          std::max(static_cast<std::int32_t>(duty_cycles_last[i]) -
+                       static_cast<std::int32_t>(duty_cycles_current[i]),
+                   static_cast<std::int32_t>(0)) *
               (1.0 -
                static_cast<double>(millis() - last_frame_time) / frame_period);
       drive_output(i, slerped);
@@ -148,6 +157,7 @@ private:
 enum control_mode {
   manual,
   sd_card,
+  off,
 };
 control_mode mode = control_mode::manual;
 auto driver = interpolating_driver{2000};
@@ -169,8 +179,7 @@ void setup() {
 }
 
 void loop() {
-  constexpr int min_command_length = 3;
-  if (Serial.available() >= min_command_length) {
+  if (Serial.available()) {
     const auto command = Serial.readStringUntil(':');
     if (command == "XY") {
       mode = control_mode::manual;
@@ -180,16 +189,24 @@ void loop() {
       const int y = Serial.parseInt();
       Serial.find(',');
       const int duty_cycle = Serial.parseInt();
-      // Wishing for std::clamp and std::numeric_limits right now
-      drive_output(x, y, std::min(std::max(duty_cycle, 0), static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
-    } else if (command == "OFF") {
+      drive_output(x, y,
+                   std::min(std::max(duty_cycle, 0),
+                            static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
+    } else if (command == "IDX") {
       mode = control_mode::manual;
-      for (int i = 0; i < NUM_BOARDS; i++) {
-        drivers[i]->reset();
-      }
+
+      const int idx = Serial.parseInt();
+      Serial.find(',');
+      const int duty_cycle = Serial.parseInt();
+
+      drive_output(idx,
+                   std::min(std::max(duty_cycle, 0),
+                            static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
+    } else if (command == "OFF") {
+      mode = control_mode::off;
     } else if (command == "SD") {
       if (!try_open_sd()) {
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
@@ -197,28 +214,30 @@ void loop() {
       const String file_name = Serial.readStringUntil('\n');
       if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
         Serial.println("Couldn't open file; does it exist?");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
       const int magnet_rows = animation_file.parseInt();
       if (animation_file.read() != ',') {
         Serial.println("Malformed separator");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
       const int magnet_cols = animation_file.parseInt();
 
       if (magnet_rows != ROWS_OF_MAGNETS || magnet_cols != COLS_OF_MAGNETS) {
         Serial.println("Mismatched number of magnets per row or column");
-        mode = control_mode::manual;
+        mode = control_mode::off;
         return;
       }
 
-      Serial.printf("Running animation '%s' for %dx%d magnet grid\n", file_name.c_str(), magnet_cols, magnet_rows);
+      Serial.println("Running animation '" + file_name + "' for " +
+                     magnet_cols + "x" + magnet_rows + " grid");
     } else {
       Serial.println("Unknown command");
     }
+    Serial.find('\n'); // Eat a newline
   }
 
   if (mode == control_mode::sd_card) {
@@ -229,8 +248,7 @@ void loop() {
       driver.set_magnet(
           magnet_idx++,
           std::min(std::max(duty_cycle, 0),
-                   static_cast<decltype(duty_cycle)>(
-                       MAX_DUTY_CYCLE)));
+                   static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
 
       if (separator == ',')
         continue;
@@ -238,16 +256,21 @@ void loop() {
         break;
       else if (separator == 0xFF) {
         // End of file (not actually the nbsp character)
-        mode = control_mode::manual;
+        mode = control_mode::off;
         Serial.println("Animation done.");
         return;
       } else {
-        Serial.printf("Malformed separator byte %#02x\n", separator);
-        mode = control_mode::manual;
+        Serial.println("Malformed separator");
+        mode = control_mode::off;
         return;
       }
     }
-
     driver.update_display();
+  } else if (mode == control_mode::off) {
+    for (int i = 0; i < NUM_MAGNETS; i++) {
+      drive_output(i, 0);
+    }
+    Serial.println("Turned magnets off");
+    mode = control_mode::manual;
   }
 }
