@@ -82,7 +82,7 @@ expire_days = 2
 
 [params.banner]
 heading = "A cheap, standalone ferrofluid display"
-image = "images/banner.jpg"
+image = "images/steel_dust_model.jpg"
 
 [params.blog]
 heading = ""
