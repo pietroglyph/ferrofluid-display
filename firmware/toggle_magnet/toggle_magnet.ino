@@ -157,6 +157,7 @@ private:
 enum control_mode {
   manual,
   sd_card,
+  serial,
   off,
 };
 control_mode mode = control_mode::manual;
@@ -179,7 +180,7 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available()) {
+  if (Serial.available() && mode != control_mode::serial) {
     const auto command = Serial.readStringUntil(':');
     if (command == "XY") {
       mode = control_mode::manual;
@@ -234,17 +235,23 @@ void loop() {
 
       Serial.println("Running animation '" + file_name + "' for " +
                      magnet_cols + "x" + magnet_rows + " grid");
+    } else if (command == "SER") {
+      mode = control_mode::serial;
     } else {
       Serial.println("Unknown command");
     }
     Serial.find('\n'); // Eat a newline
   }
 
-  if (mode == control_mode::sd_card) {
+  if (mode == control_mode::sd_card || mode == control_mode::serial) {
+    Stream *stream_to_use = mode == control_mode::sd_card
+                                ? static_cast<Stream *>(&animation_file)
+                                : static_cast<Stream *>(&Serial);
+
     std::uint8_t magnet_idx = 0;
     while (driver.ready_for_new_frame()) {
-      const int duty_cycle = animation_file.parseInt();
-      const char separator = animation_file.read();
+      const int duty_cycle = stream_to_use->parseInt();
+      const char separator = stream_to_use->read();
       driver.set_magnet(
           magnet_idx++,
           std::min(std::max(duty_cycle, 0),
