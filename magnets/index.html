@@ -195,7 +195,39 @@ Electromagnets</span></a> </span>
 </header>
 <div class="post-inner thin">
 <div class=entry-content>
-<p>Test.</p>
+<h1 id=creating-electromagnets>Creating Electromagnets</h1>
+<h2 id=why-electromagnets>Why Electromagnets?</h2>
+<p>The first plan for team FerroFish was to use PCB magnets. However, upon testing the PCB magnets we found that they were not viable for lifting and moving ferrofluid so the decision was made to create our own electromagnets.</p>
+<p>Electromagnets are created by wrapping wire around a ferrous core and applying a voltage to the wire, creating a current in the wire. The current induces a magnetic field and thus magnetizes the ferrous core - creating a magnet.</p>
+<p>The equation for the strength of the field given by our electromagnets is below:</p>
+<p>$B = \frac{\mu_oNI}{l}$</p>
+<p>Where $\mu_o$ is the permittivity of free space, $N$ is the number of turns in the wire, $I$ is the current, and $l$ is the length of the solenoid.</p>
+<p>Electromagnets are more flexible than permanent magnets because they can be easily turned on and off by adjusting voltage. As a team we decided that electromagnets would provide the flexibility.</p>
+<h2 id=creating-our-electromagnets>Creating our Electromagnets</h2>
+<p>We decided for cost purposes we would create our own electromagnets rather than buying premade ones. We calculated that 1000 turns would create a magnetic field strong enough to lift the ferrofluid.</p>
+<p>Creating our electromagnets was three main steps:</p>
+<ol>
+<li>3D print spools for winding</li>
+<li>Create the magnets by winding the wire</li>
+<li>Soldering jumper cables onto the magnets so they can be used with controller boards</li>
+</ol>
+<h3 id=3d-printing-spools>3D Printing Spools</h3>
+<p>The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them.</p>
+<p><strong>INSERT IMAGE OF SPOOL CAD HERE</strong></p>
+<h3 id=winding-the-wires>Winding the Wires</h3>
+<p>On the rig for winding the magnets there is a counter that let the winder know when 1000 turns had been reached. Our goal for the magnet grid was a 4x4 grid, or 16 total magnets. Extra spools were printed in the event we had magnets break.</p>
+<h3 id=soldering-the-magnets>Soldering the Magnets</h3>
+<p>Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.</p>
+<p><strong>INSERT MAGNET IMAGE HERE</strong></p>
+<h2 id=using-the-magnets>Using the Magnets</h2>
+<p>We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.</p>
+<p><strong>INSERT IMAGE OF MAGNET HOLDER</strong>
+<strong>INSERT IMAGE OF MAGNET HOLDER CAD</strong></p>
+<p>From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
+<strong>ADD LINK TO SOFTWARE PAGE?</strong></p>
+<h2 id=final-take-aways>Final Take-Aways</h2>
+<p>While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project it was apparent that it was our best option.</p>
+<p>Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.</p>
 </div>
 </div>
 <div class="section-inner d-none">
