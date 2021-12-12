@@ -1,3 +1,9 @@
+// TO COMPILE:
+// 1. Install avr_stl via the arduino IDE library manager
+// 2. Bo to Tools/Board/Boards Manager and set Arduino AVR version to 1.8.2
+//    (See this thread on ArduinoSTL:
+//    https://github.com/mike-matera/ArduinoSTL/issues/56
+
 #ifdef __AVR_ARCH__
 #include "ArduinoSTL.h"
 #endif
@@ -27,7 +33,10 @@ constexpr std::uint8_t NUM_MAGNETS = NUM_BOARDS * NUM_MAGNETS_PER_BOARD;
 
 constexpr std::uint16_t MAX_DUTY_CYCLE = 4095;
 
-constexpr std::uint8_t BOARDS_ID_BASE = 0x40;
+constexpr std::uint8_t BOARDS_ID_BASE = 0x41;
+
+// CS pin for SD card reading on SPI
+constexpr std::uint8_t CHIPSELECT_PIN = SS;
 
 std::array<Adafruit_PWMServoDriver *, NUM_BOARDS> drivers;
 SdFs sd;
@@ -67,8 +76,9 @@ bool try_open_sd() {
   if (!sd.sdErrorCode())
     return true;
 
-  Serial.println("Trying to open SD card via SDIO in FIFO mode");
-  if (!sd.begin(SdioConfig(FIFO_SDIO))) {
+  Serial.println("Opening SD card via SPI in Default mode");
+  const SdSpiConfig spi_config(CHIPSELECT_PIN, DEDICATED_SPI, SPI_HALF_SPEED);
+  if (!sd.begin(spi_config)) {
     Serial.println("Failed to open SD card");
     return false;
   }
@@ -160,7 +170,7 @@ enum control_mode {
   off,
 };
 control_mode mode = control_mode::manual;
-auto driver = interpolating_driver{2000};
+auto driver = interpolating_driver{3500};
 
 void setup() {
   Serial.begin(9600);
@@ -192,6 +202,9 @@ void loop() {
       drive_output(x, y,
                    std::min(std::max(duty_cycle, 0),
                             static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
+
+      Serial.println("Toggling magnet at position (" + (String)x + ", " + y +
+                     "), with duty cycle " + duty_cycle);
     } else if (command == "IDX") {
       mode = control_mode::manual;
 
@@ -204,6 +217,13 @@ void loop() {
                             static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
     } else if (command == "OFF") {
       mode = control_mode::off;
+    } else if (command == "ls") {
+      if (!try_open_sd()) {
+        Serial.println("Failed to open SD");
+        return;
+      }
+      sd.ls("/", LS_DATE | LS_SIZE | LS_R);
+
     } else if (command == "SD") {
       if (!try_open_sd()) {
         mode = control_mode::off;
@@ -212,7 +232,11 @@ void loop() {
 
       mode = control_mode::sd_card;
       const String file_name = Serial.readStringUntil('\n');
-      if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
+      Serial.println("Opening file " + file_name);
+      FsFile root_dir;
+      root_dir.open("/");
+      // if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
+      if (!animation_file.openNext(&root_dir, O_RDONLY)) {
         Serial.println("Couldn't open file; does it exist?");
         mode = control_mode::off;
         return;
