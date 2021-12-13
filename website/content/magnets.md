@@ -46,7 +46,7 @@ On the rig for winding the magnets there is a counter that let the winder know w
 
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
-[wound magnet](static/images/magnet.jpg)
+[wound magnet](images/magnet.jpg)
 
 ## Using the Magnets
 
