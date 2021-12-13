@@ -34,7 +34,7 @@ Creating our electromagnets was three main steps:
 
 ### 3D Printing Spools
 
-The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. 
+The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. Below is the CAD used to print the spools.
 
 [spool cad](../static/images/spool_cad.png)
 
@@ -47,6 +47,8 @@ On the rig for winding the magnets there is a counter that let the winder know w
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
 [wound magnet](../static/images/magnet.jpg)
+
+The magnets have 1000 turns of wire around the spool. The blue shrink wrap indicates the part of the wire coming out of a hole in the time and the green shrink wrap indicates wire coming from the side. These wires are also hot glued in place to ensure they do not unravel.
 
 ## Using the Magnets
 
