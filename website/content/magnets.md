@@ -36,7 +36,7 @@ Creating our electromagnets was three main steps:
 
 The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. 
 
-**INSERT IMAGE OF SPOOL CAD HERE**
+[spool cad](../static/images/spool_cad.png)
 
 ### Winding the Wires
 
@@ -52,8 +52,9 @@ Once the magnets were wound, jumper cables were soldered onto the ends of the wi
 
 We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.
 
-**INSERT IMAGE OF MAGNET HOLDER**
-**INSERT IMAGE OF MAGNET HOLDER CAD**
+[IRL magnet holder](../static/images/irl_magnet_holder.png)
+[magnet holder CAD top](../static/images/magnet_holder_iso.png)
+[magnet holder CAD bottom](../static/images/magnet_holder_iso_lower.png)
 
 From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
 **ADD LINK TO SOFTWARE PAGE?**
