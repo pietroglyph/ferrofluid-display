@@ -60,7 +60,7 @@ Creating our electromagnets was three main steps:
 
 The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. 
 
-![spool_cad](../images/spool_cad.png)
+![spool_cad](../static/images/spool_cad.png)
 
 #### Winding the Wires
 
@@ -70,18 +70,20 @@ On the rig for winding the magnets there is a counter that let the winder know w
 
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
-![magnet](../images/magnet.jpg)
+![magnet](../static/images/magnet.jpg)
+
+The magnets have 1000 turns of wire around the spool. The blue shrink wrap indicates the part of the wire coming out of a hole in the time and the green shrink wrap indicates wire coming from the side. These wires are also hot glued in place to ensure they do not unravel.
 
 ### Using the Magnets
 
 We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.
 
-**INSERT IMAGE OF MAGNET HOLDER**
-![magnet_holder_iso](../images/magnet_holder_iso.png)
-**INSERT IMAGE OF MAGNET HOLDER CAD**
-![magnet_holder_iso_lower](../images/magnet_holder_iso_lower.png)
 
-![irl_magnet_holder](../images/irl_magnet_holder.png)
+![magnet_holder_iso](../static/images/magnet_holder_iso.png)
+
+![magnet_holder_iso_lower](../static/images/magnet_holder_iso_lower.png)
+
+![irl_magnet_holder](../static/images/irl_magnet_holder.png)
 
 From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
 **ADD LINK TO SOFTWARE PAGE?**
@@ -90,7 +92,7 @@ From the holder we were able to connect all of the magnets to the controller boa
 
 While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project it was apparent that it was our best option. 
 
-Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.
+Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid. [For more information about software, click here](#animation)
 
 
 
