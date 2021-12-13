@@ -85,14 +85,13 @@ We 3D printed a holder for our 4x4 magnet grid. This holder went through multipl
 
 ![irl_magnet_holder](../static/images/irl_magnet_holder.png)
 
-From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
-**ADD LINK TO SOFTWARE PAGE?**
+From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software. [For more information about software, click here](#animation)
 
 ### Final Take-Aways
 
 While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project it was apparent that it was our best option. 
 
-Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid. [For more information about software, click here](#animation)
+Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.
 
 
 
