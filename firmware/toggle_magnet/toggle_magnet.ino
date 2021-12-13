@@ -3,6 +3,11 @@
 // 2. Go to Tools/Board/Boards Manager and set Arduino AVR version to 1.8.2
 //    (See this thread on ArduinoSTL:
 //    https://github.com/mike-matera/ArduinoSTL/issues/56
+// 3. You need to increase SERIAL_RX_BUFFER_SIZE; because our file is
+//    preprocessed in a way that adds #include <Arduino.h> at the start, any
+//    definition of that macro will have no effect. You will need to edit
+//    https://github.com/arduino/ArduinoCore-avr/blob/6154b7a7c1fba34737562aa4c29cec7451a82989/cores/arduino/HardwareSerial.h#L49-L55
+//    to use a buffer size of 256 manually.
 
 #ifdef __AVR_ARCH__
 #include "ArduinoSTL.h"
