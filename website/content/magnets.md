@@ -54,6 +54,7 @@ We 3D printed a holder for our 4x4 magnet grid. This holder went through multipl
 
 [IRL magnet holder](../static/images/irl_magnet_holder.png)
 
+
 [magnet holder CAD top](../static/images/magnet_holder_iso.png)
 [magnet holder CAD bottom](../static/images/magnet_holder_iso_lower.png)
 
