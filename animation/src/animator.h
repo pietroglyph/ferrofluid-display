@@ -26,4 +26,6 @@ public:
 private:
   frontend front;
   backend back;
+
+  bool has_repeated_frame;
 };

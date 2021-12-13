@@ -1,6 +1,6 @@
 // TO COMPILE:
 // 1. Install avr_stl via the arduino IDE library manager
-// 2. Bo to Tools/Board/Boards Manager and set Arduino AVR version to 1.8.2
+// 2. Go to Tools/Board/Boards Manager and set Arduino AVR version to 1.8.2
 //    (See this thread on ArduinoSTL:
 //    https://github.com/mike-matera/ArduinoSTL/issues/56
 
@@ -23,6 +23,12 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <SdFat.h>
 
+#ifdef __AVR_ARCH__
+constexpr bool IS_TEENSY = false;
+#else
+constexpr bool IS_TEENSY = true;
+#endif
+
 constexpr std::uint8_t COLS_OF_BOARDS = 1, ROWS_OF_BOARDS = 1;
 constexpr std::uint8_t NUM_BOARDS = COLS_OF_BOARDS * ROWS_OF_BOARDS;
 
@@ -31,8 +37,11 @@ constexpr std::uint8_t NUM_MAGNETS_PER_BOARD =
     COLS_OF_MAGNETS * ROWS_OF_MAGNETS;
 constexpr std::uint8_t NUM_MAGNETS = NUM_BOARDS * NUM_MAGNETS_PER_BOARD;
 
+// Maxiumum magnet duty cycle; out of 4095 for the PCA
 constexpr std::uint16_t MAX_DUTY_CYCLE = 4095;
 
+// I^2C base address for boards (boards are assumed to be at addresses
+// increasing sequentially from tihs address)
 constexpr std::uint8_t BOARDS_ID_BASE = 0x41;
 
 // CS pin for SD card reading on SPI
@@ -76,9 +85,17 @@ bool try_open_sd() {
   if (!sd.sdErrorCode())
     return true;
 
-  Serial.println("Opening SD card via SPI in Default mode");
-  const SdSpiConfig spi_config(CHIPSELECT_PIN, DEDICATED_SPI, SPI_HALF_SPEED);
-  if (!sd.begin(spi_config)) {
+  Serial.println(String("Opening SD card ") +
+                 (IS_TEENSY ? "via SDIO" : "via SPI in Default mode"));
+  bool ok;
+  if constexpr (IS_TEENSY) {
+    const SdSpiConfig spi_config{CHIPSELECT_PIN, DEDICATED_SPI, SPI_HALF_SPEED};
+    ok = sd.begin(spi_config);
+  } else {
+    const auto sd_config = FIFO_SDIO;
+    ok = sd.begin(sd_config);
+  }
+  if (!ok) {
     Serial.println("Failed to open SD card");
     return false;
   }
@@ -174,11 +191,11 @@ control_mode mode = control_mode::manual;
 auto driver = interpolating_driver{3500};
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-  Serial.println("Connecting to servo boards");
+  Serial.println("Connecting to servo boards:");
   for (std::size_t i = 0; i < NUM_BOARDS; i++) {
-    Serial.print("Connecting to board ");
+    Serial.print("\tConnecting to board ");
     Serial.println(BOARDS_ID_BASE + i);
     drivers[i] = new Adafruit_PWMServoDriver(BOARDS_ID_BASE + i);
     drivers[i]->begin();
@@ -220,11 +237,9 @@ void loop() {
       mode = control_mode::off;
     } else if (command == "ls") {
       if (!try_open_sd()) {
-        Serial.println("Failed to open SD");
         return;
       }
       sd.ls("/", LS_DATE | LS_SIZE | LS_R);
-
     } else if (command == "SD") {
       if (!try_open_sd()) {
         mode = control_mode::off;
@@ -234,10 +249,18 @@ void loop() {
       mode = control_mode::sd_card;
       const String file_name = Serial.readStringUntil('\n');
       Serial.println("Opening file " + file_name);
-      FsFile root_dir;
-      root_dir.open("/");
-      // if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
-      if (!animation_file.openNext(&root_dir, O_RDONLY)) {
+
+      bool ok;
+      if constexpr (IS_TEENSY) {
+        ok = animation_file.open(file_name.c_str(), O_RDONLY);
+      } else {
+        Serial.println("File opening is broken; ignoring file name and opening "
+                       "first file");
+        FsFile root_dir;
+        root_dir.open("/");
+        ok = animation_file.openNext(&root_dir, O_RDONLY);
+      }
+      if (!ok) {
         Serial.println("Couldn't open file; does it exist?");
         mode = control_mode::off;
         return;
@@ -283,15 +306,17 @@ void loop() {
 
       if (separator == ',')
         continue;
-      else if (separator == '\n')
+      else if (separator == '\n') {
+        Serial.print("ack\n");
         break;
-      else if (separator == 0xFF) {
+      } else if (separator == 0xFF) {
         // End of file (not actually the nbsp character)
         mode = control_mode::off;
         Serial.println("Animation done.");
         return;
       } else {
-        Serial.println("Malformed separator");
+        Serial.print("Malformed separator ");
+        Serial.println(separator);
         mode = control_mode::off;
         return;
       }

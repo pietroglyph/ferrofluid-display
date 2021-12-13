@@ -1,5 +1,6 @@
 #include <cstdlib>
 
+#include <chrono>
 #include <limits>
 
 #include "backends/file_backend.h"
@@ -16,10 +17,11 @@ int main(int argc, char *argv[]) {
     output_file = argv[2];
   }
 
+  using namespace std::chrono_literals;
   constexpr std::uint8_t display_height = 4, display_width = 4;
   auto frontend = file_frontend<display_width, display_height>{image_directory};
   auto backend = file_backend<display_width, display_height, std::uint16_t>{
-      output_file, 4095};
+      output_file, 3.5s, 4095};
 
   animator<decltype(frontend), decltype(backend)> anim{std::move(frontend),
                                                        std::move(backend)};
