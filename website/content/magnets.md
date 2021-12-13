@@ -59,7 +59,7 @@ We 3D printed a holder for our 4x4 magnet grid. This holder went through multipl
 [magnet holder CAD bottom](../static/images/magnet_holder_iso_lower.png)
 
 From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
-**ADD LINK TO SOFTWARE PAGE?**
+[For more information about software, click here](software.md)
 
 ## Final Take-Aways
 
