@@ -30,7 +30,7 @@ Front             |  Back
 
 <a id="tank"></a>
 
-## Tank 
+## Tank {{<navarrow Navigation>}}
 
 Our tank is comprised of two sheets of 10" by 12" glass with thickness 3/32" separated by a 1/4" acrylic rim. They are attached with epoxy.
 
@@ -40,7 +40,7 @@ Next, the tank was cleaned extremely thoroughly using ammonia and hot water and 
 
 <a id="magnets"></a>
 
-## Magnets
+## Magnets {{<navarrow Navigation>}}
 
 The first plan for team FerroFish was to use PCB magnets. However, upon testing the PCB magnets we found that they were not viable for lifting and moving ferrofluid so the decision was made to create our own electromagnets.
 
@@ -67,7 +67,7 @@ Creating our electromagnets was three main steps:
 
 The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. 
 
-![spool_cad](../static/images/spool_cad.png)
+![spool_cad](../images/spool_cad.png)
 
 ##### Winding the Wires
 
@@ -77,7 +77,7 @@ On the rig for winding the magnets there is a counter that let the winder know w
 
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
-![magnet](../static/images/magnet.jpg)
+![magnet](../images/magnet.jpg)
 
 ##### Using the Magnets
 
@@ -102,17 +102,19 @@ Creating the magnets required a lot of patience and communication, but ultimatel
 
 <a id="controller"></a>
 
-## Controller and Electronics
+## Magnet Controller and Electronics {{<navarrow Navigation>}}
 
 Our magnet controller is based off of the [Applied Procrastination Electromagnet Control Board](https://hackaday.io/project/167056-fetch-a-ferrofluid-display/log/197057-fetch-v2-massive-hardware-upgrade) schematic. The main idea is to control an LED driver via I2C from your microcontroller to turn electromagnets on or off. The current out of the driver is not large enough to power the electromagnets, however, so we placed the signal through a Darlington transistor array. We included two sets header pins for our input signals and power rails, so we could chain together multiple boards, if we chose to expand the display.
+
+The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives messages from the Arduino Uno, which can be programmed via Serial or with an SD card with animations preloaded (click to enlarge schematics). 
+
+
+[![controller_kicad](../images/controller_kicad.png)](../images/controller_kicad.png)
+
 
 Pullup resistors for I2C were selected based on [Adafruit schematics](https://learn.adafruit.com/assets/36269) for our LED driver. The capacitor values were chosen with help from Course Assistants Lauren and Corey as well as the Adafruit schematic.
 
 The Arduino Mega was used due to an unfortunate frying of our Teensy 4.1 (may it rest in peace). The Arduino Mega has more memory than an Uno but has less memory and is slower than the Teensy.
-
-[![controller_kicad](../images/controller_kicad.png)](../images/controller_kicad.png)
-
-The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives messages from the Arduino Uno, which can be programmed via Serial or with an SD card with animations preloaded.
 
 [![block_diagram](../images/block_diagram.jpg)](../images/block_diagram.jpg)
 
@@ -120,7 +122,7 @@ The controller has 16 output pins, which connect to the 4 by 4 magnet array. It 
 
 <a id="firmware"></a>
 
-## Firmware
+## Firmware {{<navarrow Navigation>}}
 
 <!-- TODO: link to system diagram here? -->
 As shown in our system diagram, a microcontroller plays back animations by sending commands over I2C to the PCA9685 PWM driver. This gives the firmware a few responsibilities:
@@ -159,7 +161,7 @@ We used OpenCV to read and display images. The rest of our code just used C++17 
 
 <a id="budget"></a>
 
-## Budget
+## Budget {{<navarrow Navigation>}}
 
 Our total cost for our final display was **$231.13**. Below shows the breakdown by subsystem and item:
 
