@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 
 project(animation LANGUAGES CXX) # Could add CUDA here in the future
 
@@ -34,9 +34,11 @@ link_directories(${PROJECT_NAME} PRIVATE "${CMAKE_SOURCE_DIR}/thirdparty/lib}")
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	${OpenCV_LIBS}
 	fmt::fmt-header-only
-	#stdc++fs # Needed for std::filesystem support when using libstdc++ 
+    #stdc++fs # Needed for std::filesystem support when using libstdc++ 
 	pthread # Needed on Linux for std::thread
 )
+
+set(CMAKE_CXX_STANDARD 17)
 
 # Sanitizers
 if (SANITIZE)

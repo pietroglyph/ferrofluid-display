@@ -47,7 +47,7 @@ constexpr std::uint16_t MAX_DUTY_CYCLE = 4095;
 
 // I^2C base address for boards (boards are assumed to be at addresses
 // increasing sequentially from tihs address)
-constexpr std::uint8_t BOARDS_ID_BASE = 0x41;
+constexpr std::uint8_t BOARDS_ID_BASE = 0x42;
 
 // CS pin for SD card reading on SPI
 constexpr std::uint8_t CHIPSELECT_PIN = SS;
@@ -131,7 +131,7 @@ public:
 
 protected:
   unsigned long frame_period;
-
+  
   std::array<std::uint16_t, NUM_MAGNETS> duty_cycles_current{};
   unsigned long last_frame_time = 0;
   bool ready_for_frame = true;
@@ -193,7 +193,8 @@ enum control_mode {
   off,
 };
 control_mode mode = control_mode::manual;
-auto driver = interpolating_driver{3500};
+auto driver = interpolating_driver{1750};
+boolean looping = false;
 
 void setup() {
   Serial.begin(115200);
@@ -256,11 +257,11 @@ void loop() {
       Serial.println("Opening file " + file_name);
 
       bool ok;
-      if constexpr (IS_TEENSY) {
-        ok = animation_file.open(file_name.c_str(), O_RDONLY);
-      } else {
-        Serial.println("File opening is broken; ignoring file name and opening "
-                       "first file");
+      if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
+        Serial.print("Failed to open file; failure code: ");
+        sd.errorPrint(&Serial);
+        Serial.println("\n Defaulting to first file on SD");
+        
         FsFile root_dir;
         root_dir.open("/");
         ok = animation_file.openNext(&root_dir, O_RDONLY);
@@ -289,6 +290,11 @@ void loop() {
                      magnet_cols + "x" + magnet_rows + " grid");
     } else if (command == "SER") {
       mode = control_mode::serial;
+    } else if (command == "FT") {
+      const int frame_period_new = Serial.parseInt();
+      driver = interpolating_driver(frame_period_new);
+
+      Serial.println("Setting frame period to " + (String) frame_period_new);
     } else {
       Serial.println("Unknown command");
     }
