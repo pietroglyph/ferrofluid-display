@@ -143,7 +143,7 @@ For demo day our goals were as follows:
   - Create animations for the demo
   
 We were able to successfully wire up all of the magnets, create a stand to hold the magnets and other components behind the tank, and load animations onto an SD card and play them on the tank. Our system was in full working order for demo day and a video of the working tank is below. A video of a working animation is below.
-  [video](../images/Working_Tank.MOV
+  [video](https://youtu.be/yQUrwy7noX4)
   
 ----
 
