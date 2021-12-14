@@ -177,7 +177,8 @@ Systems</span></a> </span>
 <li><a href=#animation>Animation and Software</a></li>
 <li><a href=#budget>Budget</a></li>
 </ul>
-<p>Our system is comprised of mechanical, electrical, firmware, and software subsystems (click on diagram to enlarge image):</p>
+<p><a id=system></a>
+Our system is comprised of mechanical, electrical, firmware, and software subsystems (click on diagram to enlarge image):</p>
 <p><a href=../images/system_diagram.jpg><img src=../images/system_diagram.jpg alt=system_diagram></a></p>
 <p>A complete image of the final system can be seen here:</p>
 <table>
@@ -205,14 +206,14 @@ Systems</span></a> </span>
 <h2 id=magnets-hahahugoshortcode-s1-hbhb>Magnets <a class=to-the-top href=#Navigation style=text-decoration:none>
 <span class=nav-arrow aria-hidden=true>&uarr;</span>
 </a></h2>
-<p>The first plan for team FerroFish was to use PCB magnets. However, upon testing the PCB magnets we found that they were not viable for lifting and moving ferrofluid so the decision was made to create our own electromagnets.</p>
-<p>Electromagnets are created by wrapping wire around a ferrous core and applying a voltage to the wire, creating a current in the wire. The current induces a magnetic field and thus magnetizes the ferrous core - creating a magnet.</p>
+<p>The first plan for team FerroFish was to use PCB magnets. However, upon testing the PCB magnets, we found that they were not viable for lifting and moving ferrofluid, so the decision was made to create our own electromagnets.</p>
+<p>Electromagnets are created by wrapping wire around a ferrous core and applying a voltage to the wire, creating a current in the wire. The current induces a magnetic field and thus magnetizes the ferrous core — creating a magnet.</p>
 <p>The equation for the strength of the field given by our electromagnets is below:</p>
 <p>$$B = \frac{\mu_oNI}{l}$$</p>
 <p>Where $\mu_o$ is the permittivity of free space, $N$ is the number of turns in the wire, $I$ is the current, and $l$ is the length of the solenoid.</p>
-<p>Electromagnets are more flexible than permanent magnets because they can be easily turned on and off by adjusting voltage. As a team we decided that electromagnets would provide the flexibility.</p>
+<p>Electromagnets are more flexible than permanent magnets because they can be easily turned on and off by adjusting voltage. As a team, we decided that electromagnets would provide the flexibility we needed.</p>
 <h5 id=creating-our-electromagnets>Creating our Electromagnets</h5>
-<p>We decided for cost purposes we would create our own electromagnets rather than buying premade ones. We calculated that 1000 turns would create a magnetic field strong enough to lift the ferrofluid.</p>
+<p>We decided for cost purposes that we would create our own electromagnets rather than buying premade ones. We calculated that 1000 turns would create a magnetic field strong enough to lift the ferrofluid with reasonable current.</p>
 <p>Creating our electromagnets was three main steps:</p>
 <ol>
 <li>3D print spools for winding</li>
@@ -220,12 +221,12 @@ Systems</span></a> </span>
 <li>Soldering jumper cables onto the magnets so they can be used with controller boards</li>
 </ol>
 <h5 id=3d-printing-spools>3D Printing Spools</h5>
-<p>The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them.</p>
+<p>The spools were printed in two parts and then glued together. These spools were then mounted onto the wiring rig, so wire could be wound onto them.</p>
 <p><img src=../images/spool_cad.png alt=spool_cad></p>
 <h5 id=winding-the-wires>Winding the Wires</h5>
-<p>On the rig for winding the magnets there is a counter that let the winder know when 1000 turns had been reached. Our goal for the magnet grid was a 4x4 grid, or 16 total magnets. Extra spools were printed in the event we had magnets break.</p>
+<p>On the rig for winding the magnets, there is a counter that let the winder know when 1000 turns had been reached. Our goal for the magnet grid was a 4x4 grid, or 16 total magnets. Extra spools were printed in the event we had magnets break.</p>
 <h5 id=soldering-the-magnets>Soldering the Magnets</h5>
-<p>Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.</p>
+<p>Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a heat shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.</p>
 <p><img src=../images/magnet.jpg alt=magnet></p>
 <h5 id=using-the-magnets>Using the Magnets</h5>
 <p>We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.</p>
@@ -239,8 +240,8 @@ Systems</span></a> </span>
 <h2 id=magnet-controller-and-electronics-hahahugoshortcode-s2-hbhb>Magnet Controller and Electronics <a class=to-the-top href=#Navigation style=text-decoration:none>
 <span class=nav-arrow aria-hidden=true>&uarr;</span>
 </a></h2>
-<p>Our magnet controller is based off of the <a href=https://hackaday.io/project/167056-fetch-a-ferrofluid-display/log/197057-fetch-v2-massive-hardware-upgrade>Applied Procrastination Electromagnet Control Board</a> schematic. The main idea is to control an LED driver via I2C from your microcontroller to turn electromagnets on or off. The current out of the driver is not large enough to power the electromagnets, however, so we placed the signal through a Darlington transistor array. We included two sets header pins for our input signals and power rails, so we could chain together multiple boards, if we chose to expand the display.</p>
-<p>The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives messages from the Arduino Uno, which can be programmed via Serial or with an SD card with animations preloaded (click to enlarge schematics).</p>
+<p>Our magnet controller is based off of the <a href=https://hackaday.io/project/167056-fetch-a-ferrofluid-display/log/197057-fetch-v2-massive-hardware-upgrade>Applied Procrastination Electromagnet Control Board</a> schematic. The main idea is to control an LED driver via I2C from your microcontroller to turn electromagnets on or off. The current out of the driver is not large enough to power the electromagnets, however, so we placed the signal through a Darlington transistor array. We included two sets of header pins for our input signals and power rails, so we could chain together multiple boards, if we chose to expand the display.</p>
+<p>The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives I2C messages from the Arduino Mega, which can be programmed via Serial or with an SD card with animations preloaded (click to enlarge schematics).</p>
 <p><a href=../images/controller_kicad.png><img src=../images/controller_kicad.png alt=controller_kicad></a></p>
 <p>Pullup resistors for I2C were selected based on <a href=https://learn.adafruit.com/assets/36269>Adafruit schematics</a> for our LED driver. The capacitor values were chosen with help from Course Assistants Lauren and Corey as well as the Adafruit schematic.</p>
 <p>The Arduino Mega was used due to an unfortunate frying of our Teensy 4.1 (may it rest in peace). The Arduino Mega has more memory than an Uno but has less memory and is slower than the Teensy.</p>
@@ -249,7 +250,7 @@ Systems</span></a> </span>
 <h2 id=firmware-hahahugoshortcode-s3-hbhb>Firmware <a class=to-the-top href=#Navigation style=text-decoration:none>
 <span class=nav-arrow aria-hidden=true>&uarr;</span>
 </a></h2>
-<p>As shown in our system diagram, a microcontroller plays back animations by sending commands over I2C to the PCA9685 PWM driver. This gives the firmware a few responsibilities:</p>
+<p>As shown in our <a href=#system>system diagram</a>, a microcontroller plays back animations by sending commands over I2C to the PCA9685 PWM driver. This gives the firmware a few responsibilities:</p>
 <ol>
 <li>Read animations from the animation generator in an agreed-upon format from the SD card or serial, or read other debug commands from serial.</li>
 <li>Interpolate to create smooth fades between frames and space apart animation frames over time.</li>
