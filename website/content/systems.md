@@ -16,6 +16,11 @@ date: 2021-11-08
 - [Animation and Software](#animation)
 - [Budget](#budget)
 
+
+Our system is comprised of mechanical, electrical, firmware, and software subsystems (click on diagram to enlarge image):
+
+[![system_diagram](../images/system_diagram.jpg)](../images/system_diagram.jpg)
+
 <a id="tank"></a>
 
 ## Tank 
@@ -73,14 +78,14 @@ Once the magnets were wound, jumper cables were soldered onto the ends of the wi
 We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.
 
 
-![magnet_holder_iso](../static/images/magnet_holder_iso.png)
+![magnet_holder_iso](../images/magnet_holder_iso.png)
 
-![magnet_holder_iso_lower](../static/images/magnet_holder_iso_lower.png)
+![magnet_holder_iso_lower](../images/magnet_holder_iso_lower.png)
 
-![irl_magnet_holder](../static/images/irl_magnet_holder.png)
+![irl_magnet_holder](../images/irl_magnet_holder.png)
 
 
-### Final Take-Aways
+##### Final Take-Aways
 
 While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project, it was apparent that it was our best option. 
 
@@ -91,13 +96,21 @@ Creating the magnets required a lot of patience and communication, but ultimatel
 
 <a id="controller"></a>
 
-## Controller
+## Controller and Electronics
 
-Put schematic here
+Our magnet controller is based off of the [Applied Procrastination Electromagnet Control Board](https://hackaday.io/project/167056-fetch-a-ferrofluid-display/log/197057-fetch-v2-massive-hardware-upgrade) schematic. The main idea is to control an LED driver via I2C from your microcontroller to turn electromagnets on or off. The current out of the driver is not large enough to power the electromagnets, however, so we placed the signal through a Darlington transistor array. We included two sets header pins for our input signals and power rails, so we could chain together multiple boards, if we chose to expand the display.
+
+Pullup resistors for I2C were selected based on [Adafruit schematics](https://learn.adafruit.com/assets/36269) for our LED driver. The capacitor values were chosen with help from Course Assistants Lauren and Corey as well as the Adafruit schematic.
+
+The Arduino Mega was used due to an unfortunate frying of our Teensy 4.1 (may it rest in peace). The Arduino Mega has more memory than an Uno but has less memory and is slower than the Teensy.
 
 [![controller_kicad](../images/controller_kicad.png)](../images/controller_kicad.png)
 
+The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives messages from the Arduino Uno, which can be programmed via Serial or with an SD card with animations preloaded.
+
 [![block_diagram](../images/block_diagram.jpg)](../images/block_diagram.jpg)
+
+
 
 <a id="firmware"></a>
 
