@@ -57,7 +57,7 @@ expire_days = 2
 
 [params.banner]
 heading = "A cheap, standalone ferrofluid display"
-image = "images/cool_tank.gif"
+image = "images/epic_ferrofluid.gif"
 
 [params.blog]
 heading = ""
