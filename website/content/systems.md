@@ -22,14 +22,19 @@ Our system is comprised of mechanical, electrical, firmware, and software subsys
 
 [![system_diagram](../images/system_diagram.jpg)](../images/system_diagram.jpg)
 
+A complete image of the final system can be seen here:
+
+Front             |  Back
+:-------------------------:|:-------------------------:
+![system_image_front](../images/system_front.jpg)  |  ![system_image_back](../images/system_back.jpg)
+
 <a id="tank"></a>
 
 ## Tank 
 
 Our tank is comprised of two sheets of 10" by 12" glass with thickness 3/32" separated by a 1/4" acrylic rim. They are attached with epoxy.
 
-Next, the tank was cleaned thoroughly using ammonia and hot water and scrubbed with Goof Off.
-
+Next, the tank was cleaned extremely thoroughly using ammonia and hot water and scrubbed with Goof Off. Without this cleaning process, the ferrofluid would stain the glass severly, leaving the glass a brown-tinted mess.
 
 ![cool_tank](../images/cool_tank.gif)
 
