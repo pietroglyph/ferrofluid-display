@@ -1,3 +1,14 @@
+// TO COMPILE:
+// 1. Install avr_stl via the arduino IDE library manager
+// 2. Go to Tools/Board/Boards Manager and set Arduino AVR version to 1.8.2
+//    (See this thread on ArduinoSTL:
+//    https://github.com/mike-matera/ArduinoSTL/issues/56
+// 3. You need to increase SERIAL_RX_BUFFER_SIZE; because our file is
+//    preprocessed in a way that adds #include <Arduino.h> at the start, any
+//    definition of that macro will have no effect. You will need to edit
+//    https://github.com/arduino/ArduinoCore-avr/blob/6154b7a7c1fba34737562aa4c29cec7451a82989/cores/arduino/HardwareSerial.h#L49-L55
+//    to use a buffer size of 256 manually.
+
 #ifdef __AVR_ARCH__
 #include "ArduinoSTL.h"
 #endif
@@ -17,6 +28,12 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <SdFat.h>
 
+#ifdef __AVR_ARCH__
+constexpr bool IS_TEENSY = false;
+#else
+constexpr bool IS_TEENSY = true;
+#endif
+
 constexpr std::uint8_t COLS_OF_BOARDS = 1, ROWS_OF_BOARDS = 1;
 constexpr std::uint8_t NUM_BOARDS = COLS_OF_BOARDS * ROWS_OF_BOARDS;
 
@@ -25,9 +42,15 @@ constexpr std::uint8_t NUM_MAGNETS_PER_BOARD =
     COLS_OF_MAGNETS * ROWS_OF_MAGNETS;
 constexpr std::uint8_t NUM_MAGNETS = NUM_BOARDS * NUM_MAGNETS_PER_BOARD;
 
+// Maxiumum magnet duty cycle; out of 4095 for the PCA
 constexpr std::uint16_t MAX_DUTY_CYCLE = 4095;
 
-constexpr std::uint8_t BOARDS_ID_BASE = 0x40;
+// I^2C base address for boards (boards are assumed to be at addresses
+// increasing sequentially from tihs address)
+constexpr std::uint8_t BOARDS_ID_BASE = 0x41;
+
+// CS pin for SD card reading on SPI
+constexpr std::uint8_t CHIPSELECT_PIN = SS;
 
 std::array<Adafruit_PWMServoDriver *, NUM_BOARDS> drivers;
 SdFs sd;
@@ -67,8 +90,17 @@ bool try_open_sd() {
   if (!sd.sdErrorCode())
     return true;
 
-  Serial.println("Trying to open SD card via SDIO in FIFO mode");
-  if (!sd.begin(SdioConfig(FIFO_SDIO))) {
+  Serial.println(String("Opening SD card ") +
+                 (IS_TEENSY ? "via SDIO" : "via SPI in Default mode"));
+  bool ok;
+  if constexpr (IS_TEENSY) {
+    const SdSpiConfig spi_config{CHIPSELECT_PIN, DEDICATED_SPI, SPI_HALF_SPEED};
+    ok = sd.begin(spi_config);
+  } else {
+    const auto sd_config = FIFO_SDIO;
+    ok = sd.begin(sd_config);
+  }
+  if (!ok) {
     Serial.println("Failed to open SD card");
     return false;
   }
@@ -157,17 +189,18 @@ private:
 enum control_mode {
   manual,
   sd_card,
+  serial,
   off,
 };
 control_mode mode = control_mode::manual;
-auto driver = interpolating_driver{2000};
+auto driver = interpolating_driver{3500};
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-  Serial.println("Connecting to servo boards");
+  Serial.println("Connecting to servo boards:");
   for (std::size_t i = 0; i < NUM_BOARDS; i++) {
-    Serial.print("Connecting to board ");
+    Serial.print("\tConnecting to board ");
     Serial.println(BOARDS_ID_BASE + i);
     drivers[i] = new Adafruit_PWMServoDriver(BOARDS_ID_BASE + i);
     drivers[i]->begin();
@@ -179,7 +212,7 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available()) {
+  if (Serial.available() && mode != control_mode::serial) {
     const auto command = Serial.readStringUntil(':');
     if (command == "XY") {
       mode = control_mode::manual;
@@ -192,6 +225,9 @@ void loop() {
       drive_output(x, y,
                    std::min(std::max(duty_cycle, 0),
                             static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
+
+      Serial.println("Toggling magnet at position (" + (String)x + ", " + y +
+                     "), with duty cycle " + duty_cycle);
     } else if (command == "IDX") {
       mode = control_mode::manual;
 
@@ -204,6 +240,11 @@ void loop() {
                             static_cast<decltype(duty_cycle)>(MAX_DUTY_CYCLE)));
     } else if (command == "OFF") {
       mode = control_mode::off;
+    } else if (command == "ls") {
+      if (!try_open_sd()) {
+        return;
+      }
+      sd.ls("/", LS_DATE | LS_SIZE | LS_R);
     } else if (command == "SD") {
       if (!try_open_sd()) {
         mode = control_mode::off;
@@ -212,7 +253,19 @@ void loop() {
 
       mode = control_mode::sd_card;
       const String file_name = Serial.readStringUntil('\n');
-      if (!animation_file.open(file_name.c_str(), O_RDONLY)) {
+      Serial.println("Opening file " + file_name);
+
+      bool ok;
+      if constexpr (IS_TEENSY) {
+        ok = animation_file.open(file_name.c_str(), O_RDONLY);
+      } else {
+        Serial.println("File opening is broken; ignoring file name and opening "
+                       "first file");
+        FsFile root_dir;
+        root_dir.open("/");
+        ok = animation_file.openNext(&root_dir, O_RDONLY);
+      }
+      if (!ok) {
         Serial.println("Couldn't open file; does it exist?");
         mode = control_mode::off;
         return;
@@ -234,17 +287,23 @@ void loop() {
 
       Serial.println("Running animation '" + file_name + "' for " +
                      magnet_cols + "x" + magnet_rows + " grid");
+    } else if (command == "SER") {
+      mode = control_mode::serial;
     } else {
       Serial.println("Unknown command");
     }
     Serial.find('\n'); // Eat a newline
   }
 
-  if (mode == control_mode::sd_card) {
+  if (mode == control_mode::sd_card || mode == control_mode::serial) {
+    Stream *stream_to_use = mode == control_mode::sd_card
+                                ? static_cast<Stream *>(&animation_file)
+                                : static_cast<Stream *>(&Serial);
+
     std::uint8_t magnet_idx = 0;
     while (driver.ready_for_new_frame()) {
-      const int duty_cycle = animation_file.parseInt();
-      const char separator = animation_file.read();
+      const int duty_cycle = stream_to_use->parseInt();
+      const char separator = stream_to_use->read();
       driver.set_magnet(
           magnet_idx++,
           std::min(std::max(duty_cycle, 0),
@@ -252,15 +311,17 @@ void loop() {
 
       if (separator == ',')
         continue;
-      else if (separator == '\n')
+      else if (separator == '\n') {
+        Serial.print("ack\n");
         break;
-      else if (separator == 0xFF) {
+      } else if (separator == 0xFF) {
         // End of file (not actually the nbsp character)
         mode = control_mode::off;
         Serial.println("Animation done.");
         return;
       } else {
-        Serial.println("Malformed separator");
+        Serial.print("Malformed separator ");
+        Serial.println(separator);
         mode = control_mode::off;
         return;
       }
