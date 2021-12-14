@@ -38,7 +38,7 @@ Electromagnets are created by wrapping wire around a ferrous core and applying a
 
 The equation for the strength of the field given by our electromagnets is below:
 
-$B = \frac{\mu_oNI}{l}$
+$$B = \frac{\mu_oNI}{l}$$
 
 Where $\mu_o$ is the permittivity of free space, $N$ is the number of turns in the wire, $I$ is the current, and $l$ is the length of the solenoid.
 
