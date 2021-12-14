@@ -12,6 +12,9 @@
 <link rel="shortcut icon" href=https://pietroglyph.github.io/ferrofluid-display/images/favicon.png type=image/x-icon>
 <link rel=icon href=https://pietroglyph.github.io/ferrofluid-display/images/favicon.png type=image/x-icon>
 <script>document.documentElement.className=document.documentElement.className.replace('no-js','js')</script>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:!0,processEnvironments:!0},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}},window.addEventListener('load',a=>{document.querySelectorAll("mjx-container").forEach(function(a){a.parentElement.classList+='has-jax'})})</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script>
 </head>
 <body class="home page-template-default page wp-embed-responsive singular enable-search-modal has-post-thumbnail has-no-pagination not-showing-comments show-avatars footer-top-visible">
 <header id=site-header class=header-footer-group role=banner>
@@ -228,14 +231,72 @@ Sprint Two
 <span class=nav-arrow aria-hidden=true>&uarr;</span>
 </a>
 </h3>
-<p>Sprint two info (talk about how it&rsquo;s a check-in instead of a sprint)</p>
-<h5 id=what-we-did>What We Did:</h5>
-<h6 id=thing-we-worked-on>Thing We Worked On:</h6>
-<p>Info about thing</p>
-<h6 id=other-thing-we-worked-on>Other Thing We Worked On:</h6>
-<p>Info about other thing</p>
+<p>Due to a general feeling of being overwhelmed across the campus, the second sprint review presentation for our class was instead changed to a simple design-review chat with the teaching team.</p>
+<h5 id=spring-goals-and-progress>Spring Goals and Progress</h5>
+<p>Our initial goals for our second sprint were to:</p>
+<ul>
+<li>Finish construction of a leak- and stain-proof ferrofluid and water tank</li>
+<li>Finish assembly and characterization of the PCB electromagnets</li>
+<li>Design and order magnet controller PCBs</li>
+<li>Finish basic magnet control Arduino/Teensy firmware</li>
+<li>Begin animation generation code</li>
+</ul>
+<h6 id=ferrofluid-tank>Ferrofluid tank:</h6>
+<p>At the end of our first sprint, our ferrofluid finally arrived. After conducting thorough research on how people online construct their ferrofluid tanks, we compiled a list of tips to constructing a stain-free ferrofluid tank:</p>
+<ul>
+<li>Use glass for the tank walls. If not available, then acrylic with a hydrophobic coating such as Rain-X may also work.</li>
+<li>Thoroughly clean tank walls, ideally with a harsh chemical such as ammonia or hydrochloric acid.</li>
+<li>After constructing the tank, fill it with brine and let it sit for at least 24 hours</li>
+</ul>
+<p>Since we did not have access to sheets of glass, while having ready access to acrylic sheets via the Olin Shop, we started by constructing a small acrylic test tank. We also did not go thorugh the trouble of sourcing hydrochloric acid from the chemistry lab, so we ended up only following one and a half out of the three tips: letting the brine sit for 24 hours, and treating the sub-optimal acrylic with Rain-X. Thus, unfortunately but unsurprisingly, after treating our Acrylic tank with Rain-X and letting it wait 24 hours, we still found that it stained quite severly:</p>
+<p><img src=../images/stained_acrylic_tank.png alt=stained_acrylic_tank></p>
+<p>This did not surprise us, as once again we really were only following one and a half out of the three tips The first obvious next step from here was to construct a glass tank. After constructing the tank, treating with Rain-X, and letting it sit with brine for 24 hours, we added in the ferrofluid, and unfortunately found that it still stains:
+<img src=../images/stained_tank.jpg alt="stained image"></p>
+<p>By this time, we had reached the end of our sprint. Thus, we failed to meet our sprint goal of having a leak- and stain-proof ferrofluid and water tank by the end of our second sprint. We only had one more thing to try next sprint: cleaning the glass using harsh chemicals.</p>
+<h6 id=pcb-electromagnets>PCB electromagnets:</h6>
+<p>During this spring, our PCB electromagnets had arrived. Our PCB electromagnets had ~60 turns per coil, per PCB. Naively, we thught that since magnetic field strenght was proportional to turn count, we would be able to just stack the PCBs until we reached enough field strength to move the ferrofluid. Thus, when the boards arrived, we soldered them together using our pre-made solder pads and a reflow oven:</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>Soldered PCB Stack</th>
+<th style=text-align:center>PCB Coils holding paperclips</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><img src=../images/pcb_coil_stack.jpg alt=pcb_coil_stack></td>
+<td style=text-align:center><img src=../images/pcb_coil_test.jpg alt=pcb_coil_test></td>
+</tr>
+</tbody>
+</table>
+<p>Unfortunately, our assumption about being able to stack the coils for additional strength did not hold true, so our PCB electromagnets proved too weak. Reality was, since field strength $B = \frac{\mu_0}{l}NI$, and really, if you have some $\hat{r}$ resistance per turn, then $I = \frac{V}{\hat{r}N}$. Notice then, that when we multiply this $I$ with $N$, the $N$ and denominator of $I$ cancel out, meaning that turn count does not actually affect the strength of a magnet, since an increase in turn count would be counterracted by a corresponding decrease in current. With this limitation in mind, we now have thoughts on how to redesign our PCB electromagnets to achieve suitable strength for moving the ferrofluid, but we do not have enough time to actually go through with that redesign.</p>
+<p>In conclusion, at the end of the sprint, while we had reached our goal of assembling and characterizing our PCB electromagnets, we have found that they are not strong enough, and we will need to look for an alternative for sourcing our electromagnets.</p>
+<h6 id=magnet-controller-board>Magnet Controller board:</h6>
+<p>During this sprint, we designed, reviewed, and ordered our magnet controller board design. While our design is largely similar to that of other Ferrofluid tank projects online, the exact parts used are not available in the exact same package or SKUs, so we had to make substitutions of our own, and verify by comparing datasheets to make sure that our substitutions are suitable.</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>Controller PCB Design Render</th>
+<th style=text-align:center>Fully Assembled Controller Board</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><img src=../images/controller_render.png alt=controller_render></td>
+<td style=text-align:center><img src=../images/controller_physical.png alt=controller_physical></td>
+</tr>
+</tbody>
+</table>
+<p>With this, we met our sprint goal of finishing the design and ordering of magnet controller boards.</p>
+<h6 id=led-test-grid--firmware>LED test grid / Firmware:</h6>
+<p>During this sprint, we constructed an LED test grid array that consisted of two 4x4 groups of LEDs that were individually addressable. This was to assist in developing a first past at the controlling firmware and testing LED addressing.</p>
+<p><img src=../images/led_grid.jpg alt=led_grid></p>
+<h6 id=animation-code-engine>Animation code engine</h6>
+<p>At the end of Sprint 2, we had finished a first path for both &ldquo;frontend&rdquo; and &ldquo;backend&rdquo; for the software. For the frontend, we had created a C++ program that will convert a set of PNG files to a simple file export with duty cycles corresponding to each pixel location. For the backend, a basic plotter was created.</p>
+<h6 id=website>Website</h6>
+<p>At the end of Sprint 2, we set up the basic layout and structure for our final website.</p>
 <h5 id=what-we-learned-1>What We Learned:</h5>
-<p>Based on this thing, we decided to do this instead of that.</p>
+<p>At the end of Sprint 2, we were feeling very low: our tank was staining quite heavily, and our PCB electromagnets were not nearly strong enough. However, during this process we learned that if we want to build a stain-resistant ferrofluid tank, we really would have to treat the glass with harsh chemicals. At the same time, we learned that for an electromagnet coil made with the same material, the turn count ultimately does not affect the strength, as the effects are negated by the drop in current.</p>
 <hr>
 <h3>
 <a id=SprintThree></a>
