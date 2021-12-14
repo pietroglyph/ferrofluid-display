@@ -47,6 +47,7 @@ weight = 10
 [params]
 description = "Informational website for an electromagnet-based ferrofluid display"
 author = "Olin College Ferrofluid Team"
+copyright = "Copyright &copy; 2021. Licensed under the GNU GPL, version 3 or later."
 
 [params.favicon]
 favicon = "images/favicon.png"
@@ -89,10 +90,3 @@ image = "images/steel_dust_model.jpg"
 
 [[params.gallery.gallery_item ]]
 image = "images/banner.jpg"
-
-
-[params.footer]
-title = "About Us"
-content = "We're a team of five students at Olin College of Engineering with a wide variety of skills and experience. This project was made for Olin College's Principles of Integrated Engineering (PIE) in Fall 2021."
-copyright = "Copyright &copy; 2021. Licensed under the GNU GPL, version 3 or later."
-
