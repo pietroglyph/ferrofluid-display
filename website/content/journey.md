@@ -138,7 +138,13 @@ In the final few days before our demonstration, we had a couple of goals in mind
 If we found extra time, we were also thinking of setting up a smaller power supply, since we had been using a benchtop one the whole time.
   
 # Demo Day Deliverables
-
+For demo day our goals were as follows:
+  - Wire all 16 magnets to the controller board
+  - Create animations for the demo
+  
+We were able to successfully wire up all of the magnets, create a stand to hold the magnets and other components behind the tank, and load animations onto an SD card and play them on the tank. Our system was in full working order for demo day and a video of the working tank is below. A video of a working animation is below.
+  [video](../images/Working_Tank.MOV
+  
 ----
 
 Requirements
