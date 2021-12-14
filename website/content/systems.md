@@ -4,7 +4,8 @@ description: "An overview of our ferrofluid project's journey"
 draft: false
 author:
   display_name: Ferrofluid Team
-date: 2021-11-08
+date: 2021-12-13
+mathjax: true
 ---
 
 ##### Contents: <a id="Navigation"></a>
@@ -42,7 +43,7 @@ Electromagnets are created by wrapping wire around a ferrous core and applying a
 
 The equation for the strength of the field given by our electromagnets is below:
 
-$B = \frac{\mu_oNI}{l}$
+$$B = \frac{\mu_oNI}{l}$$
 
 Where $\mu_o$ is the permittivity of free space, $N$ is the number of turns in the wire, $I$ is the current, and $l$ is the length of the solenoid.
 
@@ -71,7 +72,7 @@ On the rig for winding the magnets there is a counter that let the winder know w
 
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
-[![magnet](../images/magnet.jpg)](../images/magnet.jpg)
+![magnet](../static/images/magnet.jpg)
 
 ##### Using the Magnets
 
