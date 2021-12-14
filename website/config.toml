@@ -66,8 +66,8 @@ heading = ""
 enable = true
 title = "Project Overview"
 content = "We set out to create a display that can move blobs of magnetic ferrofluid to create animations and display text and images. We have eight weeks and a budget of $250 USD, so the display we create must be inexpensive and easy to assemble."
-button_label = "Follow our journey"
-button_url = "journey"
+button_label = "Learn about our systems"
+button_url = "system"
 
 [params.gallery]
 enable = true
