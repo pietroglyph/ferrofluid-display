@@ -32,14 +32,14 @@ Creating the test tank had two subgoals: creating an "etch-a-sketch" where we we
 #### Etch-A-Sketch
 We were able to successfully create a small test tank that only had metal shavings in it. We used an electromagnet that had previously been purchased to prove that the metal shavings could be moved with an electromagnet. An image of the test tank is below.
 
-![metal shaving tank](../static/images/steel_dust_model.jpg)
+![metal shaving tank](../images/steel_dust_model.jpg)
 
 #### Water-Tight Tank
 Another goal with tank ideation was to begin thinking about what it would take to create a water-tight tank. At the start we knew that the finished product would have ferrofluid suspended in saline,  so we had to be prepared to reach that goal.
 
 When we made the tank it was apparent that there were issues with leaking, a evidenced by salt build up on the outside of the tank from the saline inside. An image of the salt build up is below.
 
-![Salt](../static/images/Salt_build_Up.JPG)
+![Salt](../images/Salt_build_Up.JPG)
 
 Additionally, we were unsure if we had successfully coated the tank to be hydrophobic. If the inside of the tank was not properly cleaned and coated, the ferrofluid would stick to the glass and stain it.
 
@@ -56,7 +56,7 @@ During this sprint we settled on a different way to create an electromagnet: PCB
 #### PCB Coil Electromagnets
 We designed and ordered PCB capable of creating an electromagnet. We believed our PCB electromagnets would have  many advantages over traditional electromagnets: we could fit more "turns" in the wire in less space, power and control the magnets more easily, and we could cover more area of the tank.  A picture of one of the finished magnet boards is below.
 
-![mag board](../static/images/PCB_Mag.jpg)
+![mag board](../images/PCB_Mag.jpg)
 
 We designed and ordered the boards this sprint. Ideally they would work like a regular electromagnet - current would pass through the coils and magnetize a ferrous core in the middle of the turns. The plan was to cut small piece of a metal rod and slot them into the holes in the PCB.
 
@@ -96,16 +96,46 @@ Based on this thing, we decided to do this instead of that.
 
 {{<sprintsection Three>}}
 
-Sprint three summary
+Sprint three was focused on getting a working MVP and creating viable backup plans. Our main goals were to:
+ 
+ - Brainstorm permanent magnet based display alternatives in case the ferrofluid tank wouldn't be ready in time
+ - Design parts to hold everything together
+ - Finish up the animation software
 
-##### What We Did:
-###### Thing We Worked On:
-Info about thing
+### Permanent-Magnet-Based Display Alternatives
+Since we were having so much trouble with the ferrofluid staining the tank, we needed a backup plan.
+#### Koi Pond
+One of the alternatives was a "Koi Pond" design, where the grid of electromagnets would lay flat and move a permanent magnet like a fish in a pond. A sketch of the concept is below:
 
-###### Other Thing We Worked On:
-Info about other thing
-##### What We Learned:
-Based on this thing, we decided to do this instead of that.
+![koi pond idea sketch](../images/koi_pond_sketch.png)
+
+#### Pillars
+Another alternative was a design we called "pillars", where the electromagnets lift permanent magnets on pillars to create patterns.
+
+### Spool Holder
+We created a 3D-printed part to hold the electromagnets in place against the tank. This took a couple of iterations to get right, since we had to hold everything securely while leaving room to route the wires. The two pieces are held together with screws and heat-set threaded inserts. Images of the parts are below:
+
+![magnet holder lower](../images/magnet_holder_iso_lower.png)
+![magnet holder](../images/magnet_holder_iso.png)
+
+### Tank Breakthrough
+We managed to get a tank that wouldn't leak or stain after thorough cleaning, so ferrofluid was a go. We were able to successfully test our hand-wound magnets with the ferrofluid tank, and it worked great.
+
+### Software
+The software was almost done - animations could be created with an online tool, exported as keyframes, and turned into a file to put on an SD card for the microcontroller. Then, the microcontroller would interpolate animations and send commands to the PWM ICs on the controller boards.
+
+### What We Learned
+This sprint was mostly grinding out various clearly defined tasks. We continued to improve communication, and managed to get our MVP working with a little bit of time to spare.
+
+Even though we didn't end up needing to use them, we agreed that the backup plans were good to have, but we could've been more organized about figuring out proof-of-concepts.
+
+### Next Steps
+In the final few days before our demonstration, we had a couple of goals in mind:
+
+- Wire up all 16 magnets to the magnet controller board
+- Create a set of animations to use on demo day
+
+If we found extra time, we were also thinking of setting up a smaller power supply, since we had been using a benchtop one the whole time.
 
 ----
 
