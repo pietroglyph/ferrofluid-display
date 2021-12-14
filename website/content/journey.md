@@ -167,7 +167,7 @@ We created a 3D-printed part to hold the electromagnets in place against the tan
 ![magnet holder](../images/magnet_holder_iso.png)
 
 ### Tank Breakthrough
-We managed to get a tank that wouldn't leak or stain after thorough cleaning, so ferrofluid was a go. We were able to successfully test our hand-wound magnets with the ferrofluid tank, and it worked great.
+We managed to get a tank that wouldn't leak or stain after thorough cleaning, so ferrofluid was a go. This involved a **lot** of iteration with beakers that we tried cleaning with different combinations of ammonia and eventually Goof Off. When we got down a formula that seemed to work (ammona, scrub, Goof Off, scrub, let saline sit in beaker briefly), we tried it on the tank. This failed, which we think was because we weren't able to scrub the tank enough or possibly because there was some contamination in one of the beakers we used to mix saline. We we-washed and re-scrubbed the tank and added saline and it worked. This became our final tank. We were able to successfully test our hand-wound magnets with the ferrofluid tank, and it worked great--they were much easier to move than the iron powder.
 
 ### Software
 The software was almost done - animations could be created with an online tool, exported as keyframes, and turned into a file to put on an SD card for the microcontroller. Then, the microcontroller would interpolate animations and send commands to the PWM ICs on the controller boards.
@@ -194,31 +194,3 @@ We were able to successfully wire up all of the magnets, create a stand to hold 
   [video](https://youtu.be/yQUrwy7noX4)
   
 ----
-
-Requirements
-
-Your final project site is required to contain the following elements.
-
-A high level summary description of the project’s objectives
-* Review/edit as needed
-
-~~A system diagram depicting the schematic relationships between all of the different subsystems comprising your final system.~~
-* Review/let Lila know what edits to make
-
-~~An account of how you spent your $250 budget. You must include all components and materials and their estimated costs (even if you obtained them for free somehow). Please note where something was obtained for free and cost is just your best estimate.~~
-* Done
-
-~~A detailed description of electrical design (circuit diagrams are appropriate) and any necessary analysis.~~
-* Review/edit as needed (v possible i missed something)
-
-A detailed description of your mechanical design ~~(CAD images/renderings are appropriate)~~ and any necessary analysis.
-* Not sure how much is done
-
-~~A detailed description of the firmware design with links to complete source code (github or other repository is helpful)~~.
-* Review/edit as needed 
-
-~~A detailed description of software design with links to complete source code (github or other repository is helpful). Please be sure to include a list of all external software dependencies (eg. OpenCV, Google Voice API, etc.)~~
-* Were dependencies included? Review/edit as needed
-
-~~Photos or videos of your final system in action.~~
-* Added/consider adding more
