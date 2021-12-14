@@ -193,7 +193,8 @@ enum control_mode {
   off,
 };
 control_mode mode = control_mode::manual;
-auto driver = interpolating_driver{1250};
+auto driver = interpolating_driver{1750};
+boolean looping = false;
 
 void setup() {
   Serial.begin(115200);
@@ -289,6 +290,11 @@ void loop() {
                      magnet_cols + "x" + magnet_rows + " grid");
     } else if (command == "SER") {
       mode = control_mode::serial;
+    } else if (command == "FT") {
+      const int frame_period_new = Serial.parseInt();
+      driver = interpolating_driver(frame_period_new);
+
+      Serial.println("Setting frame period to " + (String) frame_period_new);
     } else {
       Serial.println("Unknown command");
     }
