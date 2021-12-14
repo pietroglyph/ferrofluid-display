@@ -177,6 +177,8 @@ Systems</span></a> </span>
 <li><a href=#animation>Animation and Software</a></li>
 <li><a href=#budget>Budget</a></li>
 </ul>
+<p>Our system is comprised of mechanical, electrical, firmware, and software subsystems (click on diagram to enlarge image):</p>
+<p><a href=../images/system_diagram.jpg><img src=../images/system_diagram.jpg alt=system_diagram></a></p>
 <p><a id=tank></a></p>
 <h2 id=tank>Tank</h2>
 <p>Our tank is comprised of two sheets of 10" by 12" glass with thickness 3/32" separated by a 1/4" acrylic rim. They are attached with epoxy.</p>
@@ -208,16 +210,19 @@ Systems</span></a> </span>
 <p><img src=../static/images/magnet.jpg alt=magnet></p>
 <h5 id=using-the-magnets>Using the Magnets</h5>
 <p>We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.</p>
-<p><img src=../static/images/magnet_holder_iso.png alt=magnet_holder_iso></p>
-<p><img src=../static/images/magnet_holder_iso_lower.png alt=magnet_holder_iso_lower></p>
-<p><img src=../static/images/irl_magnet_holder.png alt=irl_magnet_holder></p>
-<h3 id=final-take-aways>Final Take-Aways</h3>
+<p><img src=../images/magnet_holder_iso.png alt=magnet_holder_iso></p>
+<p><img src=../images/magnet_holder_iso_lower.png alt=magnet_holder_iso_lower></p>
+<p><img src=../images/irl_magnet_holder.png alt=irl_magnet_holder></p>
+<h5 id=final-take-aways>Final Take-Aways</h5>
 <p>While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project, it was apparent that it was our best option.</p>
 <p>Creating the magnets required a lot of patience and communication, but ultimately, it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.</p>
 <p><a id=controller></a></p>
-<h2 id=controller>Controller</h2>
-<p>Put schematic here</p>
+<h2 id=controller-and-electronics>Controller and Electronics</h2>
+<p>Our magnet controller is based off of the <a href=https://hackaday.io/project/167056-fetch-a-ferrofluid-display/log/197057-fetch-v2-massive-hardware-upgrade>Applied Procrastination Electromagnet Control Board</a> schematic. The main idea is to control an LED driver via I2C from your microcontroller to turn electromagnets on or off. The current out of the driver is not large enough to power the electromagnets, however, so we placed the signal through a Darlington transistor array. We included two sets header pins for our input signals and power rails, so we could chain together multiple boards, if we chose to expand the display.</p>
+<p>Pullup resistors for I2C were selected based on <a href=https://learn.adafruit.com/assets/36269>Adafruit schematics</a> for our LED driver. The capacitor values were chosen with help from Course Assistants Lauren and Corey as well as the Adafruit schematic.</p>
+<p>The Arduino Mega was used due to an unfortunate frying of our Teensy 4.1 (may it rest in peace). The Arduino Mega has more memory than an Uno but has less memory and is slower than the Teensy.</p>
 <p><a href=../images/controller_kicad.png><img src=../images/controller_kicad.png alt=controller_kicad></a></p>
+<p>The controller has 16 output pins, which connect to the 4 by 4 magnet array. It receives messages from the Arduino Uno, which can be programmed via Serial or with an SD card with animations preloaded.</p>
 <p><a href=../images/block_diagram.jpg><img src=../images/block_diagram.jpg alt=block_diagram></a></p>
 <p><a id=firmware></a></p>
 <h2 id=firmware>Firmware</h2>
