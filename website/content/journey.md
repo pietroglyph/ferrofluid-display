@@ -30,6 +30,7 @@ Creating the test tank had two subgoals: creating an "etch-a-sketch" where we we
 
 ### Etch-A-Sketch
 We were able to successfully create a small test tank that only had metal shavings in it. We used an electromagnet that had previously been purchased to prove that the metal shavings could be moved with an electromagnet. An image of the test tank is below.
+
 [metal shaving tank](../static/images/steel_dust_model.jpg)
 
 ### Water-Tight Tank
