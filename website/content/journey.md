@@ -31,14 +31,14 @@ Creating the test tank had two subgoals: creating an "etch-a-sketch" where we we
 ### Etch-A-Sketch
 We were able to successfully create a small test tank that only had metal shavings in it. We used an electromagnet that had previously been purchased to prove that the metal shavings could be moved with an electromagnet. An image of the test tank is below.
 
-[metal shaving tank](../static/images/steel_dust_model.jpg)
+![metal shaving tank](../static/images/steel_dust_model.jpg)
 
 ### Water-Tight Tank
 Another goal with tank ideation was to begin thinking about what it would take to create a water-tight tank. At the start we knew that the finished product would have ferrofluid suspended in saline,  so we had to be prepared to reach that goal.
 
 When we made the tank it was apparent that there were issues with leaking, a evidenced by salt build up on the outside of the tank from the saline inside. An image of the salt build up is below.
 
-[Salt](../static/images/Salt_build_Up.JPG)
+![Salt](../static/images/Salt_build_Up.JPG)
 
 Additionally, we were unsure if we had successfully coated the tank to be hydrophobic. If the inside of the tank was not properly cleaned and coated, the ferrofluid would stick to the glass and stain it.
 
@@ -55,7 +55,7 @@ During this sprint we settled on a different way to create an electromagnet: PCB
 ### PCB Coil Electromagnets
 We designed and ordered PCB capable of creating an electromagnet. We believed our PCB electromagnets would have  many advantages over traditional electromagnets: we could fit more "turns" in the wire in less space, power and control the magnets more easily, and we could cover more area of the tank.  A picture of one of the finished magnet boards is below.
 
-[mag board](../static/images/PCB_Mag.jpg)
+![mag board](../static/images/PCB_Mag.jpg)
 
 We designed and ordered the boards this sprint. Ideally they would work like a regular electromagnet - current would pass through the coils and magnetize a ferrous core in the middle of the turns. The plan was to cut small piece of a metal rod and slot them into the holes in the PCB.
 
