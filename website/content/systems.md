@@ -31,10 +31,6 @@ Next, the tank was cleaned thoroughly using ammonia and hot water and scrubbed w
 
 ## Magnets
 
-Creating Electromagnets
-
-### Why Electromagnets?
-
 The first plan for team FerroFish was to use PCB magnets. However, upon testing the PCB magnets we found that they were not viable for lifting and moving ferrofluid so the decision was made to create our own electromagnets.
 
 Electromagnets are created by wrapping wire around a ferrous core and applying a voltage to the wire, creating a current in the wire. The current induces a magnetic field and thus magnetizes the ferrous core - creating a magnet.
@@ -47,7 +43,7 @@ Where $\mu_o$ is the permittivity of free space, $N$ is the number of turns in t
 
 Electromagnets are more flexible than permanent magnets because they can be easily turned on and off by adjusting voltage. As a team we decided that electromagnets would provide the flexibility.
 
-### Creating our Electromagnets
+##### Creating our Electromagnets
 
 We decided for cost purposes we would create our own electromagnets rather than buying premade ones. We calculated that 1000 turns would create a magnetic field strong enough to lift the ferrofluid.
 
@@ -56,23 +52,23 @@ Creating our electromagnets was three main steps:
 2. Create the magnets by winding the wire
 3. Soldering jumper cables onto the magnets so they can be used with controller boards
 
-#### 3D Printing Spools
+##### 3D Printing Spools
 
 The spools were printeed in two parts and then glued together. These spools were then mounted onto the wiring rig so wire could be wound onto them. 
 
 ![spool_cad](../images/spool_cad.png)
 
-#### Winding the Wires
+##### Winding the Wires
 
 On the rig for winding the magnets there is a counter that let the winder know when 1000 turns had been reached. Our goal for the magnet grid was a 4x4 grid, or 16 total magnets. Extra spools were printed in the event we had magnets break.
 
-#### Soldering the Magnets
+##### Soldering the Magnets
 
 Once the magnets were wound, jumper cables were soldered onto the ends of the wires. The connection between the wire and the jumper cable was then wrapped in a protective shrink wrap to prevent shorts with other wires. A finished magnet is pictured below.
 
-![magnet](../images/magnet.jpg)
+[![magnet](../images/magnet.jpg)](../images/magnet.jpg)
 
-### Using the Magnets
+##### Using the Magnets
 
 We 3D printed a holder for our 4x4 magnet grid. This holder went through multiple iterations as we refined our tolerances and also created a way to hold the magnets to the tank. An image of all 16 magnets as well as the CAD for the final holder is below.
 
@@ -83,14 +79,12 @@ We 3D printed a holder for our 4x4 magnet grid. This holder went through multipl
 
 ![irl_magnet_holder](../images/irl_magnet_holder.png)
 
-From the holder we were able to connect all of the magnets to the controller board and turn them on and off via software.
-**ADD LINK TO SOFTWARE PAGE?**
 
 ### Final Take-Aways
 
-While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project it was apparent that it was our best option. 
+While originally we did not think that creating our own electromagnets would be cost or time effective, by the end of our project, it was apparent that it was our best option. 
 
-Creating the magnets required a lot of patience and communication, but ultimately it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.
+Creating the magnets required a lot of patience and communication, but ultimately, it created a better end product as we were able to successfully make a magnet grid with them and lift the ferrofluid.
 
 
 
@@ -101,9 +95,9 @@ Creating the magnets required a lot of patience and communication, but ultimatel
 
 Put schematic here
 
-![controller_kicad](../images/controller_kicad.png)
+[![controller_kicad](../images/controller_kicad.png)](../images/controller_kicad.png)
 
-![block_diagram](../images/block_diagram.jpg)
+[![block_diagram](../images/block_diagram.jpg)](../images/block_diagram.jpg)
 
 <a id="firmware"></a>
 
@@ -119,7 +113,7 @@ Put schematic here
 
 ## Budget
 
-Our total cost for our final display was **$221.27**. Below shows the breakdown by subsystem and item:
+Our total cost for our final display was **$231.13**. Below shows the breakdown by subsystem and item:
 
 | Tank           | Cost          |
 |----------------|---------------|
@@ -128,8 +122,8 @@ Our total cost for our final display was **$221.27**. Below shows the breakdown 
 | Delrin holders | $2*           |
 | Epoxy          | $10.94        |
 | Ferrofluid     | $31           |
-| Ammonia        | $???          |
-| **Total**      | **$54.34???** |
+| Ammonia        | $1.78          |
+| **Total**      | **$56.12** |
 
 
 
@@ -157,10 +151,10 @@ Our total cost for our final display was **$221.27**. Below shows the breakdown 
 
 | Boards                   | Cost       |
 |--------------------------|------------|
-| Teensy 4.1               | $26.85     |
+| Arduino Mega*            | $34.93     |
 | Custom controller boards | $15        |
 | Perfboard                | $2*        |
-| **Total**                | **$43.85** |
+| **Total**                | **$51.93** |
 
 
 

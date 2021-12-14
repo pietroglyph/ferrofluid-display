@@ -22,40 +22,15 @@ URL = "/"
 weight = 1
 
 [[menu.main]]
-name = "**Our Journey**"
+name = "Our Journey"
 URL = "journey"
 identifier = "mother"
 weight = 2
 
 [[menu.main]]
-name = "**Systems**"
+name = "Systems"
 URL = "systems"
 weight = 4
-
-[[menu.main]]
-name = "Tank"
-URL = "tank"
-weight = 5
-
-[[menu.main]]
-name = "Electromagnets"
-URL = "magnets"
-weight = 6
-
-[[menu.main]]
-name = "Controller Board"
-URL = "controller"
-weight = 7
-
-[[menu.main]]
-name = "Firmware"
-URL = "firmware"
-weight = 8
-
-[[menu.main]]
-name = "Software and Animation"
-URL = "software"
-weight = 9
 
 [[menu.main]]
 name = "About"
@@ -82,7 +57,7 @@ expire_days = 2
 
 [params.banner]
 heading = "A cheap, standalone ferrofluid display"
-image = "images/steel_dust_model.jpg"
+image = "images/cool_tank.gif"
 
 [params.blog]
 heading = ""
@@ -98,7 +73,11 @@ button_url = "journey"
 enable = true
 
 [[params.gallery.gallery_item ]]
-image = "images/steel-dust-model.jpg"
+image = "images/steel_dust_model.jpg"
+
+[[params.gallery.gallery_item ]]
+image = "images/banner.jpg"
+
 
 [params.footer]
 title = "About Us"
