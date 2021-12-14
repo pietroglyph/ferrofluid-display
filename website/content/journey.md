@@ -136,6 +136,8 @@ In the final few days before our demonstration, we had a couple of goals in mind
 - Create a set of animations to use on demo day
 
 If we found extra time, we were also thinking of setting up a smaller power supply, since we had been using a benchtop one the whole time.
+  
+# Demo Day Deliverables
 
 ----
 
